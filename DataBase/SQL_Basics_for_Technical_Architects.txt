@@ -1,0 +1,197 @@
+
+### Basic SQL Concepts for Technical Architects
+
+Understanding SQL basics like indexes, joins, group by, order by, and other statements is essential for a technical architect. Here’s a detailed overview with examples:
+
+---
+
+### 1. **Indexes**
+Indexes improve the speed of data retrieval operations on a database table by providing quick access to rows.
+
+- **Creating an Index**:
+  ```sql
+  CREATE INDEX idx_employee_name ON employees(name);
+  ```
+  This creates an index on the `name` column of the `employees` table.
+
+- **Benefits**:
+  - Faster search queries (e.g., `SELECT * FROM employees WHERE name = 'John';`).
+  - Improved performance for `ORDER BY` and `GROUP BY` clauses.
+
+- **Considerations**:
+  - Indexes consume additional disk space.
+  - Frequent updates, inserts, or deletes can slow down due to index maintenance.
+
+---
+
+### 2. **Joins**
+Joins combine rows from two or more tables based on a related column between them.
+
+- **Inner Join**: Returns records that have matching values in both tables.
+  ```sql
+  SELECT employees.name, departments.department_name
+  FROM employees
+  INNER JOIN departments ON employees.department_id = departments.department_id;
+  ```
+  This query retrieves the names of employees along with their department names.
+
+- **Left Join (or Left Outer Join)**: Returns all records from the left table, and the matched records from the right table. If no match, NULLs are returned.
+  ```sql
+  SELECT employees.name, departments.department_name
+  FROM employees
+  LEFT JOIN departments ON employees.department_id = departments.department_id;
+  ```
+
+- **Right Join (or Right Outer Join)**: Returns all records from the right table, and the matched records from the left table. If no match, NULLs are returned.
+  ```sql
+  SELECT employees.name, departments.department_name
+  FROM employees
+  RIGHT JOIN departments ON employees.department_id = departments.department_id;
+  ```
+
+- **Full Join (or Full Outer Join)**: Returns all records when there is a match in either left or right table.
+  ```sql
+  SELECT employees.name, departments.department_name
+  FROM employees
+  FULL OUTER JOIN departments ON employees.department_id = departments.department_id;
+  ```
+
+---
+
+### 3. **GROUP BY**
+`GROUP BY` groups rows that have the same values in specified columns into aggregated data.
+
+- **Example**:
+  ```sql
+  SELECT department_id, COUNT(*) AS employee_count
+  FROM employees
+  GROUP BY department_id;
+  ```
+  This query counts the number of employees in each department.
+
+- **Using with Aggregation Functions**:
+  - `COUNT()`: Count the number of rows.
+  - `SUM()`: Sum of values.
+  - `AVG()`: Average of values.
+  - `MAX()` / `MIN()`: Maximum / Minimum value.
+
+- **HAVING Clause**: Filters groups according to conditions, similar to `WHERE` but for groups.
+  ```sql
+  SELECT department_id, COUNT(*) AS employee_count
+  FROM employees
+  GROUP BY department_id
+  HAVING COUNT(*) > 10;
+  ```
+
+---
+
+### 4. **ORDER BY**
+`ORDER BY` is used to sort the result-set in ascending or descending order.
+
+- **Example**:
+  ```sql
+  SELECT name, salary
+  FROM employees
+  ORDER BY salary DESC;
+  ```
+  This query retrieves the names and salaries of employees sorted by salary in descending order.
+
+- **Multiple Columns**:
+  ```sql
+  SELECT name, department_id, salary
+  FROM employees
+  ORDER BY department_id ASC, salary DESC;
+  ```
+  This sorts by department first (ascending) and then by salary within each department (descending).
+
+---
+
+### 5. **WHERE Clause**
+`WHERE` filters records that meet a specified condition.
+
+- **Example**:
+  ```sql
+  SELECT * FROM employees WHERE salary > 50000;
+  ```
+  This query retrieves all employees with a salary greater than 50,000.
+
+---
+
+### 6. **Subqueries**
+Subqueries are queries nested inside another query.
+
+- **Example**:
+  ```sql
+  SELECT name
+  FROM employees
+  WHERE department_id = (SELECT department_id FROM departments WHERE department_name = 'HR');
+  ```
+  This query retrieves the names of employees in the HR department.
+
+---
+
+### 7. **Union**
+`UNION` combines the result sets of two or more `SELECT` statements.
+
+- **Example**:
+  ```sql
+  SELECT name FROM employees WHERE department_id = 1
+  UNION
+  SELECT name FROM employees WHERE department_id = 2;
+  ```
+  This query retrieves the names of employees from departments 1 and 2, eliminating duplicates.
+
+---
+
+### 8. **Distinct**
+`DISTINCT` removes duplicate rows from the result set.
+
+- **Example**:
+  ```sql
+  SELECT DISTINCT department_id FROM employees;
+  ```
+  This query retrieves unique department IDs from the employees table.
+
+---
+
+### 9. **Limit / Offset**
+`LIMIT` restricts the number of rows returned by a query. `OFFSET` specifies the number of rows to skip before starting to return rows.
+
+- **Example**:
+  ```sql
+  SELECT * FROM employees ORDER BY salary DESC LIMIT 10;
+  ```
+  This query retrieves the top 10 highest-paid employees.
+
+- **With Offset**:
+  ```sql
+  SELECT * FROM employees ORDER BY salary DESC LIMIT 10 OFFSET 5;
+  ```
+  This skips the top 5 highest-paid employees and then retrieves the next 10.
+
+---
+
+### 10. **Insert, Update, Delete**
+Basic DML (Data Manipulation Language) statements.
+
+- **Insert**:
+  ```sql
+  INSERT INTO employees (name, department_id, salary)
+  VALUES ('John Doe', 2, 60000);
+  ```
+
+- **Update**:
+  ```sql
+  UPDATE employees
+  SET salary = 70000
+  WHERE name = 'John Doe';
+  ```
+
+- **Delete**:
+  ```sql
+  DELETE FROM employees WHERE name = 'John Doe';
+  ```
+
+---
+
+These SQL concepts are foundational for designing and optimizing databases in a technical architect role. Understanding these thoroughly will help you design efficient, scalable, and maintainable database systems.

@@ -1,0 +1,196 @@
+Microservices:(James Lewis)
+==========================
+	- The microservice architectural style is an approach in developing a single application as a suit of small services, each running in it's own process and communicating with lightweight mechanism, often an HTTP resource API.
+	
+	- They're built around business capabilities, they're independently deployable, and fully automated and deployable into different machinery and different systems. And at the end of the day, they're the bare minimum of centralized management of these services.
+	
+		- Microservices - Decomposition of monolithic(legacy) services.
+		- SOA
+		- Monolithic 
+	
+	- Microservices will take lot of storage, compute, Network and operations. To overcome all these problems devOps came into the picture.
+	- Cloud platforms like GCP, AWS and Azure will provide all the above 4 things to handle microservices in well.
+	
+	- DevOps becoming the primary method of delivering the solutions to the cloud.
+	
+	- Dev --> Flow , Measure, Collaboration
+	- Ops --> Architecture, Virtualization, Automation
+	- Software life cycle --> spec - code - build - test - deploy.
+	
+	- Microservices can described like --> Get SSN --> Send SSN --> Validate SSN --> Update SSN. etc.
+	
+	- Architecture:
+	---------------
+		- Complex Architecture -->
+		- Distributed Architecture -->
+		- Serverless Architecture -->
+		- Composite Architecture --> 
+		
+Microservices Security:
+=======================
+
+	- 3 Tier Architecture --> Presentation Tier + Logic Tier + DB Tier.(Monolithic Architecture)
+	- IAM --> Identity & Access Management Platforms.
+	- Fault Tolerance --> If any service is getting failed in the network, this concept will help us to identify service and route to running service.
+	- Security Fundamentals -->(3)
+	
+		- Confidentiality:  Confidentiality ensures that information remains private by only allowing authorized users to access it.
+		- Integrity: Integrity ensures that information can be trusted because it has not been tampered with.
+		- Availability: Availability ensures that systems are accessible and can make information available to authorized users when they need it. 
+	- Security Concepts:
+		
+		- Access Control
+			- Authentication
+			- Authorization.
+		- Trust - Trusting the domain.
+	
+	- Advantages:
+		- Availability : Even any service is attacked by attacker, rest of the services will be available.
+		- Distributed services: Due to this, it is impossible to comprise the services.
+		
+	- Disadvantages:
+		- It is difficult to establish user identity across the services. In monolithic architecture, once the user authenticated rest of the services will be available but not in microservice architecture.
+		
+	- Identity Management & Access Control:
+	---------------------------------------
+	
+		- Distributed access management pattern:
+		
+			- Here First request will go the identity service, this service will return the token generated.
+			- In next step, these tokens will be validated by "ReverseProxy".
+			- Then with validated tokens, request will be given to the specific service.
+			
+		- Identity and Access Management Platforms
+			- There is no need to re-invent the wheel, already we have many platforms which we can use for security.
+			- IAM is one of the platform, which provides below.
+				
+				- Authentication : 
+					- User can be authenticated using any identity store( DB or LDAP or ThirdParty or social security sites)
+				    - One more way is one time pin or user biometrics to perform authenticated.
+					
+		- ReverseProxy: (API Gateway)
+			- A reverse proxy acts as a front end that all traffic to a server or multiple servers passes through. This helps to create a single entry point that hides details of the underlying servers from the client and allows functionality to be centralized in the gateway.
+			- This is also useful for "Request Tracing", "performance monitoring"
+	
+	- Token Based Security:
+	-----------------------
+	
+		- Every time we cannot validate the user identity for all the services. This can be overcome using token based concept.
+		- This token is generated once user is validated with the IAM/Identity Service.
+		
+		- Reference Token: 
+		
+			 A reference token is an opaque string that doesn't contain any meaningful data. Instead, it is passed in a request and used as an identifier to look up the token metadata in a repository of stored tokens inside the IAM platform. 
+		
+		- Structured Token:
+		
+			structured tokens hold metadata about the token itself, the authentication event, and the end user inside the token's payload. The metadata is stored in key value pairs known as claims, which are grouped together into a claim set. One of the standards for formatting structured tokens commonly used inside microservices is JSON web token. 
+			
+		- JWT Token: 
+		
+			- HEADER(Algorithm and Token type) 
+			- PAYLOAD (Data) 
+			- SIGNATURE (Verification)
+				 It is cryptographically derived from the token's header, payload, and a secret key. The signature is used to verify that a token hasn't changed since it was created
+				 
+	- oAuth 2 Primer:
+	-----------------
+		
+		- Fundamentals terminalogy in oAuth is below:
+			- Resource Owner	- Resource Serverless		- Authorization		- Client
+		
+		Steps:
+		
+		- Request first goes from Resource owner to the Authorization server.
+		- Authentication server authorizes resource owner and sends the token.
+		- Client now sends tokens to service for accessing it.
+		
+		Advantages:
+		
+		- Services not required to validate the client and hold the credentials. Authentication servere will take care of it.
+		
+	- OpenID Connect:(Sign with Google/Facebook/Linkdin): https://openid.net/connect/
+	-----------------------------------------------------
+		
+			-  OpenID Connect is a thin identity layer that sits on top of OAuth. The standard describes how capabilities like authentication and user profile information are delivered using an authentication request, an ID token and a user info endpoint. OpenID Connect or OIDC, establishes a standalone identity provider that is separate from the client application
+			
+	- JWT Token Validations: ( https://jwt.io/)
+	-------------------------------------------
+		- jwt tokens starts with "eyJ" with base64 encoded string.
+		
+	- Token Best Practices:
+	----------------------
+		- Transport everything over TLS.
+		- Protect tokens like credentials.
+		- Always set an expiration date.
+		- Avoid strong sensitive information in tokens.
+		
+	- Digital Certificates:
+	----------------------
+		
+	- Service Mesh: Managing the communication between service to service)
+	---------------
+		- Microservices should be deployed in containers( Docker).
+		- Container orchestration systems ( Kubernetes ).
+		- Istio is service mesh provided by the google.
+		
+		- In mesh, each service containse Sidecar Proxy.
+		
+	- Throttling and Rate Limiting:
+	-------------------------------
+		- Throttling is nothing but the speed limit for the API.
+			- Control usage of API clients.
+			- Limit traffic to avoid complete outage.
+			- We can also apply quota for the clients.
+			- Also monatize the API for clients.(Rate Limit)
+			
+	- Container Runtime Security(Docker):
+	-------------------------------------
+		- Host Security
+			- Keep access limited.
+			- Drop all unnecessary previleges.
+			- Never run containers using the -privileged flag, it increases the risk of container breakout.
+			- Set the user, don't use as root.
+			- Configure ready only files.
+			
+	- Image Security:
+	-----------------
+		
+		
+===================================================================================================================================================
+
+	- Cloud Native 12-factor methodologies:
+	---------------------------------------
+	
+	1) SCM and revision control:-> Multiple deployments with single code base like dev, sit, uat and production.
+	
+	2) Managing dependencies: -> Each application should have different dependencies should be maintained.
+	
+	3) Application Configuration: -> In a multi-environment, multi-data center ecosystem, configuration is almost guaranteed to be different between those environments and our third factor focuses on that configuration. Let us spend a few moments and define what configuration, or config, really is. Config includes those items which are specific to an environment and not to an application. Database connections are a great example
+	
+	4) Backing services: -> Backing service is nothing but example write the DB connection using in-build memory. Once the development done, you can changes DB connection to actual DB. These are called backing service.
+	
+	5) CI/CD: -> The code base is trasformed into build phase. Version number should be incremented.
+	
+	6) Running process: -> Single threaded memory usage, short lived memory usage. 
+	
+	7) Port binding: -> Different services running in single process with binding different ports.
+	
+	8) Scaling with process: -> Increase the application instances in monolithic but with 12-factor using concurrancy model.
+	
+	9) Dispose it all: -> 
+	
+	10) Environment uniformity: -> development env to production env should be same. Don't allow wide gap between environment.
+	
+	11) Use your logs: -> Critical for operations, used for tracing the bugs.
+	
+	12) Administering: -> Admin task should be maintained in different code base.
+	
+=====================================================================================================================================================
+
+	
+			
+		
+		
+		
+		

@@ -1,0 +1,64 @@
+* Web Development --> Html5 + css3 + Javascript
+
+* This will be compared with the human beings, will described below detailed.
+
+* Html5 (Skelton) --> It is skelton of the body with the bones, which doesn't look for the body. It will be created with elements and attributes.
+* css3 (Look & Feel) --> This will give the look for the body, it will be achived with giving proper css using classes of ids.
+* Javascript(Brain) --> Now above skelton and look doesn't have any actions. It is like dead body. We have to give the proper actions to this body(functionality).This will be done using javascript by handling events. This will act as brain.
+
+* All of these 3 will be rendered into web browser
+
+* HTML --> Hyper text mark language. These consists of elements and tags.
+
+* elements --> <html>, <p>, <div>, <span> , <br>, <br> --> with these elements doc will look like normal word document.
+
+* attributes --> These will be used with elements to make it proper like width, height ,src, href
+Few attributes like boolean, those are "required".
+
+* important attributes --> id(primary), class(we can use multiple times.)
+
+* Document Structure --> Every page will be having some structure which starts with <html> tag.
+
+*<!Doctype html>  --> it will let you know about which type of document like html, xml etc
+<html> --> first tag.
+<head> --> This will include title, css sheet include, view port etc will be inside head tag.
+<title> Hi Welcome </title>
+</head>
+<body></body>
+</html>
+
+* Heading --> h1 -> h2 ->....h6 (h1 is biggest one)
+
+* Entities --> With these entities will be able to display the reserved elements like h1,p etc. Eg: &lt;h1&gt; ==>equal to <h1>
+
+* comments --> <!-- comment -->
+
+* Few tags --> <b>bold , <i>italic, <small>small text , 10<sup>2</sup> super scripts, 10<sub> sub scripts, <ul> unordered list, <ol> ordered list.
+
+* <a href="www.google.com" target="_blank"> --> _blank will be opened in another tab.
+
+* <image src="" alt="" width=10/> --> To maintain accept ratio of image give either width or height but not both. "alt" is nothing but alternate text, if we give src path wrongly.
+
+* <video src="" autoplay controls loop muted poster></video> --> autoplay - will not have pause buttone controls etc. controls -- pause, play etc
+loop -- video will played in loop. muted - video will muted. poster --> Before video starts, we can display any poster like youtube thumbnail.
+
+* <iframe src="www.youtube.com"> --> we can embed videos in our page.
+
+* <table> --> <table><tr><th></th></tr> <tbody><tr><td></td></tr></tbody> </table> , colspan = '2' to combine two rows.
+
+* Forms --> <form method='' action=''> --> 2 attributs.
+	Elements in form --> <input type='text' name='firstname' value="suresh"/>, <textarea> <select options=''>
+	types --> text, password, radio, checkbox, file, submit, reset, image etc.
+	
+* Semantic Tags --> Tags which clearly defines the content. Eg: section, nav, header, aside, article, footer. --> These will be useful for clean code.
+
+* Diff btw div/span --> div is "block level element and span is "inline" element
+
+* Block level element --> which occupies entire width of the page. Eg: p, div
+
+* inline element --> these elements will take only the content width but not entire row space. Eg: em, span.
+
+
+
+
+

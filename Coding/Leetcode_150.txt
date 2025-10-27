@@ -1,0 +1,762 @@
+1) Contains Duplicate(217)
+
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        Set set = new HashSet<Integer>();
+        for(int num: nums){
+            if(set.contains(num)) return true;
+            set.add(num);
+        }
+        return false;
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+2) Valid Anagram (242)
+
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+
+Example 1:
+Input: s = "anagram", t = "nagaram"
+Output: true
+
+Example 2:
+Input: s = "rat", t = "car"
+Output: fal
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        
+        s = s.replaceAll("\\s","").toLowerCase();
+        t = t.replaceAll("\\s","").toLowerCase();
+
+        if(s.length() != t.length()){
+            return false;
+        }
+
+        char[] sarray = s.toCharArray();
+        char[] tarray = t.toCharArray();
+
+        Arrays.sort(sarray);
+        Arrays.sort(tarray);
+        return Arrays.equals(sarray, tarray);
+    }
+}
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        
+        s = s.replaceAll("\\s","").toLowerCase();
+        t = t.replaceAll("\\s","").toLowerCase();
+
+        if(s.length() != t.length()){
+            return false;
+        }
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for(char c: s.toCharArray()){
+            map.put(c, map.getOrDefault(c,0)+1);
+        }
+
+        for(char c: t.toCharArray()){
+            if(!map.containsKey(c)) return false;
+            map.put(c, map.get(c)-1);
+            if(map.get(c)==0)map.remove(c);
+        }
+
+        return map.isEmpty();
+    }
+}
+
+The Best solution:
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        int[] count = new int[26];
+        
+        // Count the frequency of characters in string s
+        for (char x : s.toCharArray()) {
+            count[x - 'a']++;
+        }
+        
+        // Decrement the frequency of characters in string t
+        for (char x : t.toCharArray()) {
+            count[x - 'a']--;
+        }
+        
+        // Check if any character has non-zero frequency
+        for (int val : count) {
+            if (val != 0) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+3) 1. Two Sum
+
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+You can return the answer in any order.
+
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+ 
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for(int i=0; i<nums.length; i++){
+            int a = nums[i];
+            int more = target - a;
+            if(map.get(more) != null){
+                return new int[]{map.get(more), i};
+            }
+            map.put(nums[i], i);
+        }
+        return null;
+
+    }
+}
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+4)Group Anagrams
+
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+
+Example:
+
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> result = new HashMap<>();
+
+        for(String str: strs){
+            char[] strArray = str.toCharArray();
+            Arrays.sort(strArray);
+            String s = new String(strArray);
+
+            if(!result.containsKey(s)){
+                result.put(s, new ArrayList<>());
+            }
+            result.get(s).add(str);
+        }
+        return new ArrayList<>(result.values());
+    }
+}
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> result = new HashMap<>();
+        for(String str: strs){
+            int[] count = new int[26];
+           for(char c : str.toCharArray()){
+                count[c - 'a']++;
+           }
+
+           StringBuilder sb = new StringBuilder();
+           for(int i: count){
+            sb.append(i);
+            sb.append("#");
+           }
+
+           String key = sb.toString();
+           result.computeIfAbsent(key, k->new ArrayList<>()).add(str);
+
+        }
+        return new ArrayList<>(result.values());
+    }
+}
+
+---------------------------------------------------------- 8/5/25-----------------------------------------------------------------
+
+5) Top K Frequent Elements
+
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+Example 1:
+
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> freqMap = new HashMap<>();
+
+        for(int num: nums){
+            freqMap.put(num, freqMap.getOrDefault(num, 0)+1);
+        }
+
+        PriorityQueue<Map.Entry<Integer, Integer>> minHeap = 
+            new PriorityQueue<>(Map.Entry.comparingByValue());
+
+        for(Map.Entry<Integer, Integer> entry: freqMap.entrySet()){
+            minHeap.offer(entry);
+            if(minHeap.size()>k){
+                minHeap.poll();
+            }
+        }
+
+        int[] result = new int[k];
+        for(int i=0; i<k;i++){
+            result[i] = minHeap.poll().getKey();
+        }
+
+        return result;
+
+
+    }
+}
+
+Bucket Sort:
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> freqMap = new HashMap<>();
+
+        for(int num: nums){
+            freqMap.put(num, freqMap.getOrDefault(num, 0)+1);
+        }
+
+        List<Integer>[] bucket = new List[nums.length + 1];
+        for(int key: freqMap.keySet()){
+            int freq = freqMap.get(key);
+            if(bucket[freq] == null){
+                bucket[freq] = new ArrayList<>();
+            }
+            bucket[freq].add(key);
+        }
+
+        int[] result = new int[k];
+        int index = 0;
+        for(int i=bucket.length-1; i>=0 && index < k ; i--){
+            if (bucket[i] != null) {
+            for (int num : bucket[i]) {
+                result[index++] = num;
+                if (index == k) break;
+            }
+        }
+        }
+
+        return result;
+
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+6) Product of Array Except Self
+Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+You must write an algorithm that runs in O(n) time and without using the division operation.
+
+Example 1:
+
+Input: nums = [1,2,3,4]
+Output: [24,12,8,6]
+
+
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+
+        int n = nums.length;
+        int[] result = new int[n];
+
+        int[] left = new int[n];
+        left[0] = 1;
+        for(int i=1; i<n; i++){
+            left[i] = nums[i-1] * left[i-1];
+        }
+
+        int[] right = new int[n];
+        right[n-1] = 1;
+        for(int i=n-2; i>=0; i--){
+            right[i] = nums[i+1] * right[i+1];
+        }
+
+        for(int i=0; i<n; i++){
+            result[i] = left[i]*right[i];
+        }
+        return result;
+    }
+}
+
+Optimal:
+
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+
+        int n = nums.length;
+        int[] result = new int[n];
+
+        int prefix = 1, postfix = 1;
+
+        for(int i=0; i<n; i++){
+           result[i] = prefix;
+           prefix =prefix* nums[i];
+        }
+
+        for(int i=n-1; i>=0;i--){
+            result[i] = postfix * result[i];
+            postfix = postfix * nums[i];
+        }
+        return result;
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+7)Valid Sudoku
+Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+
+Each row must contain the digits 1-9 without repetition.
+Each column must contain the digits 1-9 without repetition.
+Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.
+
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        Set sudoko = new HashSet<>();
+
+        for(int i=0; i<9; i++){
+            for(int j=0; j<9; j++){
+                int val = board[i][j];
+                if (val == '.') continue;
+                String rowKey = val + "in row " + i;
+                String colKey = val + "in col" + j;
+                String boxKey = val + "in box "+ i/3 + "-" + j/3;
+
+                if(!sudoko.add(rowKey) || !sudoko.add(colKey) || !sudoko.add(boxKey)) return false;
+
+            }
+        }
+        return true;
+    }
+}
+
+public class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        // Row, Column, and Box sets
+        HashSet<Character>[] rows = new HashSet[9];
+        HashSet<Character>[] cols = new HashSet[9];
+        HashSet<Character>[] boxes = new HashSet[9];
+
+        for (int i = 0; i < 9; i++) {
+            rows[i] = new HashSet<>();
+            cols[i] = new HashSet<>();
+            boxes[i] = new HashSet<>();
+        }
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                char val = board[i][j];
+                if (val == '.') continue;
+
+                if (rows[i].contains(val)) return false;
+                if (cols[j].contains(val)) return false;
+
+                int boxIndex = (i / 3) * 3 + (j / 3);
+                if (boxes[boxIndex].contains(val)) return false;
+
+                rows[i].add(val);
+                cols[j].add(val);
+                boxes[boxIndex].add(val);
+            }
+        }
+
+        return true;
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+8) Longest Consecutive Sequence
+Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+
+You must write an algorithm that runs in O(n) time.
+
+
+Optimal:
+
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        if(nums.length == 0) return 0;
+        for(int num: nums){
+            set.add(num);
+        }
+        int maxLength = 0;
+
+        for(int num: set){
+            if(!set.contains(num-1)){
+                int currentNum = num;
+                int length = 1;
+                while(set.contains(currentNum + 1)){
+                    length++;
+                    currentNum++;
+                }
+            maxLength = Math.max(maxLength, length);
+            }
+        }
+        return maxLength;
+    }
+}
+
+Better:
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        if (nums.length == 0) return 0;
+
+        Arrays.sort(nums);
+        int maxLen = 1;
+        int currentLen = 1;
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == nums[i - 1]) continue; // Skip duplicates
+            if (nums[i] == nums[i - 1] + 1) {
+                currentLen++;
+            } else {
+                maxLen = Math.max(maxLen, currentLen);
+                currentLen = 1;
+            }
+        }
+
+        return Math.max(maxLen, currentLen);
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+9) 125. Valid Palindrome
+
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+Given a string s, return true if it is a palindrome, or false otherwise.
+
+Input: s = "A man, a plan, a canal: Panama"
+Output: true
+Explanation: "amanaplanacanalpanama" is a palindrome.
+
+class Solution {
+    public boolean isPalindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+
+        while(left < right){
+
+            while(left<right && ! Character.isLetterOrDigit(s.charAt(left))){
+                left++;
+            }
+
+            while(left<right && ! Character.isLetterOrDigit(s.charAt(right))){
+                right--;
+            }
+
+            if(Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) return false;
+            left++;
+            right--;
+        }
+        return true;
+
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+10) Two Sum II - Input Array Is Sorted
+
+Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length.
+
+Return the indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2] of length 2.
+
+The tests are generated such that there is exactly one solution. You may not use the same element twice.
+
+Your solution must use only constant extra space.
+
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+     int left = 0;
+     int right = numbers.length - 1;
+
+     while(left < right){
+        if(numbers[left] + numbers[right] > target){
+            right --;
+        }else  if(numbers[left] + numbers[right] < target){
+            left ++;
+        }else{
+            return new int[]{left+1, right+1};
+        }
+     }
+     return null;
+
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+11) 3 Sum 
+Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+
+Notice that the solution set must not contain duplicate triplets.
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        int size = nums.length;
+         
+         for(int i=0; i<size-2; i++){
+
+            if(i != 0 && nums[i] == nums[i-1]) continue;
+            int left = i + 1;
+            int right = size - 1;
+            
+            while(left < right){
+                int sum = nums[i] + nums[left] + nums[right];
+            if(sum < 0){
+                left++;
+            }else if(sum > 0){
+                right--; 
+            }else{
+               result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+               while(left < right && nums[left] == nums[left+1]) left++;
+               while(left < right && nums[right] == nums[right-1 ]) right --;  
+               left++;
+               right--;           
+            }
+            }
+         }
+         return result;
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+12. Container With Most Water
+
+You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
+
+Find two lines that together with the x-axis form a container, such that the container contains the most water.
+
+Return the maximum amount of water a container can store.
+
+Notice that you may not slant the container.
+
+class Solution {
+    public int maxArea(int[] height) {
+       int n = height.length - 1;
+       int max = 0;
+
+       int left = 0;
+       int right = n;
+
+       while(left < right){
+        int min = Math.min(height[left], height[right]);
+        int width = right - left;
+        int area = min * width;
+
+        max = Math.max(max, area);
+        if(height[left] < height[right]){
+            left++;
+        }else{
+            right--;
+        }
+
+       }
+    return max;
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+13) 42. Trapping Rain Water
+
+Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
+
+BruteForce: Calculate for each position leftMax and rightMax;
+
+class Solution {
+    public int trap(int[] height) {
+        
+        int n = height.length;
+        int water = 0;
+        
+        for(int i=0; i<n; i++){
+
+            int leftMax = 0, rightMax = 0;
+            for(int j=0; j<=i; j++){
+                leftMax = Math.max(leftMax, height[j]);
+            }
+
+            for(int j=i; j<n; j++){
+                rightMax = Math.max(rightMax, height[j]);
+            }
+			//This is the formula
+            water += Math.min(leftMax, rightMax) - height[i];
+
+        }
+        return water;
+    }
+}
+
+Better: Calculated each value left max by comparing max value.
+
+class Solution {
+    public int trap(int[] height) {
+        
+        int n = height.length;
+        int water = 0;
+        
+        int leftMax[] = new int[n];
+        int rightMax[] = new int[n];
+
+        leftMax[0] = height[0];
+        for(int i=1; i<n; i++){
+            leftMax[i] = Math.max(leftMax[i-1], height[i]);
+        }
+
+        rightMax[n-1] = height[n-1];
+        for(int i=n-2; i>=0; i--){
+            rightMax[i] = Math.max(rightMax[i+1], height[i]);
+        }
+
+        for(int i=0; i<n; i++){
+            water += Math.min(leftMax[i], rightMax[i]) - height[i];
+        }
+
+        return water;
+    }
+}
+
+optimal:
+
+class Solution {
+    public int trap(int[] height) {
+        
+        int n = height.length;
+        int water = 0;
+        int left = 0;
+        int right = n - 1;     
+        int leftMax = 0;
+        int rightMax = 0;
+
+        while(left < right){
+            if(height[left] < height[right]){
+                if(height[left] > leftMax){
+                    leftMax = height[left];
+                }else{
+                    water += leftMax - height[left];
+                }
+                left++;
+            }else{
+                if(height[right] > rightMax){
+                    rightMax = height[right];
+                }else{
+                    water += rightMax - height[right];
+                }
+                right --;
+            }
+        }
+        return water;
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+14) 121. Best Time to Buy and Sell Stock
+
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+Bruteforce:(max profit)
+-----------
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int max =0;
+        int profit = 0;
+        int n = prices.length;
+        for(int i=0; i<n; i++){
+            for(int j=i+1; j<n-1; j++){
+                profit = prices[j] - prices[i];
+                if(profit > max){
+                    max = profit;
+                }
+            }
+        }
+        return max;
+    }
+}
+
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int maxPrice = 0;
+        int minPrice = Integer.MAX_VALUE;
+
+        for(int price: prices){
+            minPrice = Math.min(minPrice, price);
+            maxPrice = Math.max(maxPrice, price - minPrice);
+        }
+        return maxPrice;
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+15) 3. Longest Substring Without Repeating Characters
+Given a string s, find the length of the longest substring without duplicate characters.
+
+Example 1:
+
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+
+        int n = s.length();
+        if (s == null || n == 0) {
+            return 0;
+        }
+
+        int left = 0;
+        int right = 0;
+        int maxLength = 0;
+        HashSet<Character> uniqueChar = new HashSet<>();
+
+        while(right < n){
+            char currentChar = s.charAt(right);
+            while(uniqueChar.contains(currentChar)){
+                uniqueChar.remove(s.charAt(left));
+                left++;
+            }
+            uniqueChar.add(currentChar);
+            maxLength = Math.max(maxLength, right - left + 1);
+            right++;
+        }
+        return maxLength;
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------
+16) 
+

@@ -1,0 +1,406 @@
+Microservices Architecture:
+===========================
+
+JDK 17
+Apache Maven 3
+Docker
+STS IDE
+Minikub-for kubernetes
+Zipkin
+Redis cache
+Kafka
+RabbitMQ
+ActiveMQ
+
+
+Microservices:
+---------------
+
+	- Microservices are architectural style of defining the application.
+	- Loosley coupled.
+	- Each service running in own process and communicating with lightweight mechanism often an HTTP API(Rest).
+	
+	- Eg: In ecommerce application, order management and customer management modules will be there. These will be independently developed as microservice and will communicate with each other.
+	
+Microservices vs monolithic:
+----------------------------
+
+	- In monolithic architecture, all the software components of an application are assembled together and tightly coupled into single software unit.
+	- In microservice architecture, the application is broken down into multiple microservices , each performing a specific business function and running in it's own environment.
+	
+		- Advantages:
+		-------------
+			- Highly maintainable and testable.
+			- Loosley coupled and independently deployable.
+			- Organized around business capabilities.
+			- Can be developed in different languages and databases.
+			
+		- Benefits :
+		------------
+			- Independent dev and deployment 
+			--------------------------------
+				-> Amazon practices continues delivery, where changes to their services are deployed all the time , thanks to their decoupled microservices architecture.
+			
+			- Scalability 
+			-------------
+				-> Eg: In black friday offers, there will be need to scale the order management service and no need to scale post order management( return process). So only we can scale the service which will be in high demand instead of scale up the entire monolithic application.
+				Eg: Netflix needed to scale their video streaming services to accomodate growing global traffic with a microservice architecture, they could independently scale their streaming services during peak hours , without over provisioning other parts of system.
+				
+			- Resilience 
+			------------
+				-> Failing of one service, doesn't bring down the entire application.
+				Eg: When uber experiences failure in specific microservice, say the payment service their primary ride hailing service continues. So this provides resilient user experience.
+				
+			- Technology diversity 
+			----------------------
+				-> At Spotify, different teams have the freedom to choose the technology stack that suits their microservice, whether it's python, Java or node etc.
+				
+		- Challanges:
+		-------------
+			- Distributed system complexity
+			---------------------------------
+				-> Netflix has to create a suit of open-source softwares, including Hystix and Ribbon to handle the inherent complexity of the distributed system.	
+				
+			- Data Consistency
+			------------------
+				-> Amanzon had to develop dynamoDB service to provide a low latency data store while maintaining consistency and partition tolerance.
+				
+			- Network Latency
+			-----------------
+				-> Uber uses robust network protocols and retries to ensure that critical information is not lost during network failures.
+				
+			- Operational Overhead
+			----------------------
+				-> Continues deployment of multiple microservices, monitoring and health management.
+				-> To handle this, Netflix developed an orchistration tool called "Spinnaker" to manage their nest fleet of microservices.
+					Eg: Movie recommendations, login, signup etc microservices.
+
+Principles of microservices:
+----------------------------
+	
+	1) Principle - 1 ( Domain Models)
+	---------------
+		- Modelled around business domain.( Not only consider tech but also consider business requirement)
+			- Bounded Context.
+			- Domain models to service delivery.
+			- DDD( Domain Delivery Design) - Eg: Order management service, order creation, updation, removal, quantity update every thing should be in the same service.
+				Eg: In e-commerce app, we might have domains like order management, customer management, Inventory management and shipping management. Each one of this have separate bounded context with it's own specific model.
+				
+				Eg: Consider ordre management service, Order will be a key entity in our domain model.
+				
+			- This principle applies when we have complex business domain that can be broken down into sub domains.
+			- It may not be as useful for simpler applications where the business logic is not complex. A monolithic architecture will best suit.
+			
+	2) Principle - 2 ( Culture of Automation)
+	----------------------------------------
+		- Build, Test, deploy using the pipeline which will save the time of developers on deployment instead they can concentrate on development.
+		
+	3) Principle - 3 (Hide implementation details)
+	----------------------------------------------
+		- Encaptulation
+		- Internal details of each microservice are hidden from other services.
+		- The only thing is exposed is the service API, which defines how other services can interact with it.
+		- Use cases:
+			- Single Responsibility.
+			- Interchangable services.
+		- Amanzon retail website is an example. Each microservice such as user authentication, product catalog, shipping cart hide it's implementation details from the others. They interact through well defined APIs.
+		
+		- This principle might not be suitable when services need to share lot of data or performance requirements dictate tighter coupling between services.
+		
+	4) Principle - 4 ( Decentralize all things )
+	--------------------------------------------
+		- Teams should be able to make decisions about their microservices independently including choice of technology, how to implement functionality and when to deploy changes.
+		- Each team can make decisions about their services without needing to coordinate with others.
+		- Decentralization allows each service use the best tools for it's needs.
+		- There might be situations when standardization is more important than the decentralization, such as when the company is small or all services have similar technology needs.
+		- Netflix gives their developer lot of freedom in how they build and deploy services, as long as they take responsibility for their decisions.
+		
+	5) Principle - 5 ( Deploy Independently )
+	-----------------------------------------
+		- Each service should be deployable independently.
+		- This means changes to a service can be deployed without having to deploy other service.
+		- This principle is useful when you want to iterate quickly on a specific part of the system without affecting others.
+		- Deploying services independently can reduce risk of changes which might cause system failures.
+		- This principle might not be practicle when there is a high degree of inter-dependent services or when changes require coordinated updates across multiple services.
+		- Amazon deploys changes to it's services multiple times a day, leveraging the independence of it's microservices to maintain the fast pace of development.
+		
+	6) Principle - 6 ( Consumer First )
+	-----------------------------------
+		- Microservices should be designed with the consumer in mind.
+		- We must consider how other service will interact with the service. There can be multiple consumer of services.
+		- We must ensure that the service is easy to consume, easy to use and understand.
+		- We must ensure changes to the service are backward compatible so that it can prevent any unfortunate issues for the consumer of service.
+		- This principle might not apply when a service doesn't have direct consumer or when the consumer of service is tight coupled with it.
+		- Google Maps API is good example, it is easy to use and understand by consumers like(Uber, zomoto etc).
+		
+	7) Principle - 7 ( Isolate Failures )
+	--------------------------------------
+		- Design microservice in a way that if one microservice fails it should not impact the functionality of other service.
+		- This leads to highly available systems which are resilient and fault-tolarance.
+		- You might not need to isolate failures in non-critical systems or in a systems where services are tightly coupled and failure in one service would inherintly affect the service.
+		- Netflix uses the Hystix library to add latency and fault-tolarance to their systems. When one service fails the system degrades gracefully instead of crashing.
+		- Eg:
+			@Service
+			public class ProductService{
+				@HystrixCommand(fallbackMethod = "defaultMethod")
+				public Product getProduct(Long Id)
+				{
+					//Call external service
+				}
+				
+				public Product defaultMethod(Long Id)
+				{
+					return new Product(id, "defaultMethod");
+				}
+			}
+			
+	8) Principle - 8 ( Highly Observable )
+	---------------------------------------
+		- It is crucial to have observability into services performance and health.
+		- This can be achieved with good logging, monitoring and tracing practices.
+		- However in systems where privacy or security is a concern , you might want to limit the amount of data that's collected and logged.
+		- Twitter uses distributed tracing. This helps in identify and resolve the issues quickly.
+		
+		
+Twelve-Factor App Methodology:
+==============================
+
+	1) Codebase :
+	--------------
+		- Each microservice has it's own code repository. There should be exactly one codebase for deployable app.
+		
+	2) Dependencies:
+	----------------
+		- Managed using build tools like maven or gradle. Explicitly declare and isolate dependencies.
+		
+	3) Config:
+	----------
+		- Store config in environment. Externalized using configuration servers.( AWS G-vault services) or environmental variables.
+		
+	4) Backing Services:
+	---------------------
+		- Each microservice can have its own database. The backing services are attached resources.( Eg: database, file system or cache service)
+		
+	5) Build, Release, Run:
+	-----------------------
+		- Strictly separate build and run stages. Achieved via docker and kubernetes.
+		
+	6) Processes:
+	-------------
+		- Execute the app as one or more stateless processes.
+		- Avoid relying on sticky sessions or local file based caching that could tight the process with specific machine.
+		- Stateless process achieved by not storing any session data.
+		
+	7) Port Binding:
+	----------------
+		- Export or expose services via port binding.
+		- Each service exposes its own 	set of ports.
+		- Avoid assuming that services will exists at pre-defined addresses or ports, as this can reduce portability.
+		- Eg: In same EC2 instance different services run on different ports which will save our cost on EC2 instance.
+		
+	8) Concurrancy:
+	---------------
+		- Each service can be scaled individually. Scale out via the process model.
+		- A Webapp might be able to handle more traffic by starting more process behind a load balancer.
+		- Avoid assuming that all instances will be running on the same machine or sharing any resources.
+		
+	9) Disposibility:
+	-----------------
+		- Maximize robustness with fast startup and graceful shutdown.
+		- Avoid designing process that can't recover from sudden death, as this can reduce resilience and increase startup time.
+		- A worker process that pull off jobs of queue might be designed to finish it's current job whenever it receives a shutdown signal.
+		- Kubernetes already provides this capabilities( Worker process related things)
+		
+	10) Dev/Prod Parity:
+	--------------------
+		- Keep development , staging, production environment should be as similar as possible.
+		- Avoid making development and production environments too different, as this can lead to hard to debug environment specific issues.
+		- you can use docker to package your application, ensuring that it runs the same way in all environments.
+		
+	11) Logs:
+	---------
+		- Treat logs as event streams.
+		- Logging should be centralized using ELK-Stack.
+		- Avoid relying on local file based logging as this can make it harder to manage and analyze the logs.
+		
+	12) Admin Processes:
+	--------------------
+		- Run admin/management tasks as one of temporary process.
+		- Avoid running admin processes as long running processes or part of regular application processes, as this can make them harder to manage and monitor.
+		- Eg: A database migration might be run one of processes, separate from the regular long-running processes of app.
+		
+		
+Annotations:
+------------
+
+	- To access the form elements in service
+		@RequestParam MultiValueMap<String, String> paramMap
+		paramMap.get("email")
+		
+	- spring.jpa.hibernate.ddl-auto=update --> This will create the table with entity names if table doesn't exists.
+	
+	- All other packages should be under the mail class package, otherwise it won't scan the packages(Component scan will not work)
+	
+	- Jackson Package will take about the converting objects to json/xml/text depending on the response.
+	
+	- ResponseEntity object will be useful for sending the custom responses as per our requirement.
+	
+	- management.endpoints.web.exposure.include=health,info
+	
+	- management.endpoints.web.exposure.exclude=env,beans
+	
+	- @Configuration -> Bean definations will be given in this class.
+	
+	
+Logging:
+---------
+
+	- slf4j -> Standard logging for Java.
+	
+Strangle design pattern:
+------------------------
+	- Used to gradually migrate functionality from monolithic application to a microservice based architecture.
+	- Named after the strangler fig plants which grow by enveloping and eventually replacing the host tree.
+	- It advocates incremental modernization while minimizing the disruption to existing application.
+	- Steps Involved:
+	-----------------
+		- 
+		
+Proxy pattern:
+--------------
+	- Practical examples.
+		- CDN (Content Delivery Network)
+		- API Gateways
+		- Service Mesh
+		
+Aggregator Pattern:
+-------------------
+	- Invalves combining data from multiple services or sources into a single unified response.
+	- The aggregator acts as a central service that orchestrates request to other services, gather the responses, and aggregates to into a cohesive results.
+	- Examples:
+		- public OrdreDetails getOrderDetails(String orderId)
+		{
+			// make request to other services 
+			Product product = productService.getProduct(orderId);
+			Inventory inventory = inventoryService.getInventory(orderId);
+			
+			//Aggregate the data into a single response.
+			
+			OrdreDetails orderDetails = new OrdreDetails(product, inventory);
+			return orderDetails;
+		}
+		
+API Gateway:
+------------
+	- Involves using a central entry point for client requests to the microservice architecture.
+	- It acts as reverse proxy that receives requests from the client , performs routing and composition , and delegates requests to appropriate microservice.
+	- Real world example:
+		- Aggregations and compositions.
+		- Authentication and Authorization.
+		- Request routing and loading balancing.
+		- Protocol translation.
+	- Pros:
+		- Improve security and governance.
+		- Scalability and Performance optimization.
+		- Simplified client interactions.
+	- Cons:
+		- Single Point of failures
+		- Increased complexity.
+		- Potential performance impact.
+	- Practical Examples:
+		- Netflix API Gateway(Zuul)
+		- Spring Cloud Gateway
+		- Amazon API Gateway.
+		
+-----
+
+OpenFeign
+
+-------------
+
+Eureka --> Service Registry
+Zuul --> API Gateway
+Ribbon --> Discovery service.
+
+--------
+
+Chained Pattern:
+----------------
+	- Useful in scenario's where multiple microservices need to collaborate and share information to fulfill a particular request or business process.
+	- Eg: In an ecommerce application, when a new user created it might be necessary to automatically generate an initial order for that user.
+	
+Saga Pattern:
+------------
+	- It is used when we manage long running transactions and ensure data consistency across multiple services.
+	- It helps to address the challanges of maintaining data integrity and handling failures in a distributed system.
+	- Saga is sequence of local transactions, where each local transaction updates the data within a single service.
+	- Each local transaction is associate with a specific step or operation in the overall business transaction.
+	- The Saga orchestrator coordinates the execution of these local transactions and ensure that either all of them are successfully completed or compensating actions are taken to rollback the changes.
+	
+	- Eg: In an e-commerce platform, it involves in multiple services such as inventory management, payment processing and shipping by using the saga pattern , a saga can be created to handle the order processing where each local transaction represents actions like.
+		- reserving the item in the inventory.
+		- charging the users payment method.
+		- initiating the shipping process 
+	- If any of these steps fail, the saga can initiate compensating actions to release the reversed resources and ensure data consistency.
+	
+Circuitbreaker Pattern:
+-----------------------
+	- Used to handle and manage the failures in distributed system.
+	- It helps to prevent cascading failures and provides fault tolarance by detecting and isolating failing services and components.
+	- Acts as a safety mechanism between the client and service.
+	- It monitor availability and responsiveness of the service.
+	- When the service is functioning normally , the circuit breaker opens and stops further requests from reaching the server.
+	- If the service starts to fail or respond slowly, the circuit breaker opens and stop further requests from the reaching service.
+	- The circuit breaker periodically check the health of the service and attempt to close the circuit when the service recovers.
+	-Eg: Netflix Hystrix, Spring cloud circuit breaker.
+	
+Sidecar Pattern:
+----------------
+	- It is used in microservice architecture to provide additional functionality and capability towards service without modifying it's core codebase.
+	- It involves deploying a separate sidecar service alongside the main service to handle specific tasks or functions.
+	- The sidecar service runs in the same context as the main service , typically provides additional capabilities such as logging , monitoring , security, service discovery and communication with other services.
+	- The sidecar service communicates with the main service through local inter-process communication mechanism, such as shared memory , pipes or localhost networking.
+	- Eg: Netflix Zuul, Istio
+	
+	
+https://github.com/akash-coded/spring-framework/discussions/145
+
+https://github.com/akash-coded/spring-framework/discussions/146
+
+--------------------------------------------------
+
+1) Validation using jakarta validations
+2) Exception handling.
+3) Proper response format.
+4) Logger implementations.
+
+
+-----------------------------------------------
+
+Messaging Patterns:
+-------------------
+	1) Asynchronous request-reply:
+		- A requestor sends message and carries on with its work.
+		- The receiver will eventually process the request and send a reply back.
+		- @Async, @EnableAsync --> Use webflex dependencies
+		
+	2) Choreography:
+		- A way of coordinating multiple microservices where each service knows what it needs to do without a centralized controller.
+		- It is based on events being broadcasted and services acting upon those events if applicable.
+		
+	3) Publisher & Subscriber:
+		- Services publish messages to a common channel.
+		- Any number of services can subscribe to these messages.
+		
+	4) Priority Queue & Queue model:
+		- 
+
+		
+		
+		
+		
+				
+			
+		
+		
+	

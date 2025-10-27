@@ -1,0 +1,188 @@
+React JS
+=========
+
+-> React is an efficient, flexible, and open-source JavaScript framework library that allows developers to the creation of simple, fast, and scalable web applications. Jordan Walke, a software engineer who was working for Facebook created React.
+
+-> Before the introduction of Hooks in React, functional components were called stateless components and were behind class components on a feature basis. After the introduction of Hooks, functional components are equivalent to class components.
+
+Shortcuts: imr --> import, rfc --> functional component, cc --> class component
+
+-> Version : 16.8.0
+-> A JavaScript library for building user interfaces maintained by Facebook.(2011)
+-> Fast & interactive UI and single Page application.
+-> React js is view layer of the MVC application.
+-> Prettier, ES7 React/Redux/Graphic, simple react snippets extensions for fast development.
+	ctrl+shift+p --> command palette --> set prettier as formatter.
+-> Advantages: 
+	-> Easy to learn and use.
+	-> Resuable components.
+	-> Performance enhancements.
+	-> Support of handy tools like React Dev tools(components, profilers).
+	
+-> Component Bases: Everything is component based, due to this code will be isolate.
+
+-> Virtual DOM: This is also an object but it won't consume more memory than the actual DOM. So whenever any state changes in the virtual DOM, only that changes is applied into the actual DOM instead of reloading everything.
+
+-> Use of Virtual DOM to improve efficiency:  React uses virtual DOM to render the view. As the name suggests, virtual DOM is a virtual representation of the real DOM. Each time the data changes in a react app, a new virtual DOM gets created. Creating a virtual DOM is much faster than rendering the UI inside the browser. Therefore, with the use of virtual DOM, the efficiency of the app improves.
+
+-> Library: A JavaScript library is a library of pre-written JavaScript code that allows for easier development of JavaScript-based applications, especially for AJAX and other web-centric technologies 
+
+-> exports: exports are useful for using the other class functionalities in another. These are two types.
+	-> named exports : 
+		-> export class example{ }
+		   import {example} from exmple.js --> Here curly braces are mandatory.
+	
+	-> default exports:
+		-> export default class example{ } (or) export default example; end of the file.
+		   import example from exmaple.js
+		   
+-> npx :--> node package executor
+
+-> React project creation :--> npx create-react-app sample (Project name shouldn't contain any capital letters).
+
+-> Important Packages for any react application: -->
+
+	-> import React from 'react'; --> This will load all the react related components.
+	-> import ReactDOM from 'react-dom/client'; --> This will load virtual dom related objects.
+	
+-> JSX :--> JavaScript syntax extension ( html+javascript). This expression must have single parent.
+   -> We can achieve this by using the below types:
+	 <> </>	OR <React.Fragment></React.Fragment>
+	 
+-> JSX stands for JavaScript XML. It allows us to write HTML inside JavaScript and place them in the DOM without using functions like appendChild( ) or createElement( ).
+
+-> Components:--> Components let you split the UI into independent, reusable pieces, and think about each piece in isolation
+	
+	1) Functional Components 2) Class Based components.
+	
+	1) Functional Components:
+	
+		export default function Footer() {
+		  return (
+			<div>Footer</div>
+		  )
+		}
+	
+	2) Class component:
+		class Footer extends Component{
+			render(){
+				return (<></>);
+			}
+		}
+	
+-> React main app component load syntax:-->
+
+	const root = ReactDOM.createRoot(document.getElementById('root'));
+	root.render(
+	  <React.StrictMode>
+		<App />
+	  </React.StrictMode>
+	);
+	
+-> props : --> props are nothing but properties which we can pass into the component. These are read only.
+			   props can be accessed by the object destructure, that means we can get values as arguments in function or else by using "props" object. Through which we can access all the properties passed to component.
+			   
+-> state : --> state values will be reflected in real DOM only when we call "this.setState({})" or else it will be updated in virtual DOM and this will not be visible in our page.
+
+-> Note: We need to use of arrow functions when we are creating functions inside functional or class components. Because with arrow functions, will have access to the "this" object , no need to call explicitly.
+
+-> State in function component :--> Need to use hooks (useState())
+-> State in class component :--> Need to create it as object.
+-> State cann't be changed directly, we need to copy/clone object and then do the manipulation, then set it in state.
+
+-> In class components, props and state will be accessed using this.props, this.state.
+
+-> In react forms, whenever form got submitted we need to call the e.preventDefault() because not to reload the page.
+
+-> React Hooks :-->
+
+	-> Hooks are the new feature introduced in the React 16.8 version. It allows you to use state and other React features without writing a class. Hooks are the functions which "hook into" React state and lifecycle features from function components. It does not work inside classes
+
+	-> useState():--> When the value changes, components will not be re-rendered. To re-render the component will be using useState() hook.
+					 -> Always we need to place the useState() function on top in the functional component.
+					 -> With conditional statements we cann't use the use state.
+					 -> On any events in react, we will not able to call the function instead have to use pass the function.
+					 -> While using the numbers in useState(), will have the option of using "prevState" while setting the values.
+						Eg: setCount((prev) => { prev+1});
+					 -> Arrays : Need to copy the array first and then add the elements to it. 
+						Eg: setNames([...names, {id:names.length, name}])
+					 -> When initial values are coming from heavy opertions like service call, then we have to set the value using function. In that case it won't update the component for later updates.
+					 
+	-> useEffect(): --> In class components will have the lifecycle methods
+							-> 1) componentDidMount() 2) componentDidUpdate() 3) componentWillUnmount()
+							
+					-> To achieve the same functionalities in the functional components, will make use of the useEffect() hook.
+					-> useEffect() get called whenever any of the states in components gets updated.
+					-> If we want to get called this useEffect() only once when the component mounted, then we can pass empty array ([]) as param.
+						Eg: useEffect(() =>{ // do your stuff },[]);
+						
+					-> we can also pass the dependency on which state, it has to be called. At that time only it get's called.
+						useEffect(() =>{ // do your stuff },[name]); --> It will be called when the "name" state get updated.
+						
+	-> useRef(): --> Below are the uses of useRef()
+					-> DOM Reference
+					-> Storing the previous state.
+					-> Hold mutable value prevent re-render of component.
+					
+	-> useMemo(): --> 
+					-> Optimize the heavy operation ==> whenever any function is taking too much time to execute because of heavy operations (Eg: like fetching the data from DB and validating it) and storing it in state. Then this will effect the others states too. To overcome this problem we can use of useMemo() hook.
+						Eg: useMemo(()=>{
+										return factorial(counter)
+										},[counter])
+					-> Referencial equality
+					-> once we write the code and finds the performance issues, then only have to use useMemo() for optimization.
+					
+	-> useCallback(): -->
+					-> Memoize the function use useCallback() & to memoize the value use useMemo()
+					-> Reference equality of the function.
+					
+	-> useContext(): --> Whenever we want to access the value from the other components, we have to drill down the props till the child components to access it. Instead of it, if we place it in context store we can access directly from there.
+	
+	-> useReducer(): -->
+						const [state, dispatch] = useReducer(countReducer, initialState);
+						
+						const countReducer = (state, action) => {
+							switch (action.type) {
+							  case "add":
+								return state + 1;
+							  case "substract":
+								return state - action.payload;
+							  default:
+								return state;
+							}
+							
+							
+-> What is an error boundary?
+	Any component which uses one of the following lifecycle methods is considered an error boundary.
+	In what places can an error boundary detect an error?
+
+		Render phase
+		Inside a lifecycle method
+		Inside the constructor
+
+
+							
+-> Redux : -->
+==============
+
+	-> npm install redux react-redux
+	-> Redux Lifecycle:
+			Action Creator -> Action 	   -> dispatch    -> Reducers        -> Store
+			You			   -> Booking Form -> Submit Form -> Ticket Counters -> Railway central store.
+			
+	-> All the reducers will be combined in the index.js file using combinedReducer.
+	
+	-> To add the store, we need to do the following 2 imports in index.js
+	
+		import { Provider } from 'react-redux';
+		import store from './redux/store'
+		
+		<Provider>
+			<App />
+		</Provider>
+		
+	-> 
+
+
+	
+	

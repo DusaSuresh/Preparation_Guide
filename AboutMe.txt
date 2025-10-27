@@ -1,0 +1,38 @@
+Tell Me About Yourself
+I started my career in 2011 as a fresher with ABC Company, where I worked on creating RESTful services using the Jersey framework. My primary responsibilities included designing and developing APIs, testing them rigorously, and deploying them to production servers. This foundational experience taught me the importance of delivering high-quality, scalable APIs that serve as the backbone of modern applications.
+
+In my next assignment, I expanded my skill set by delving into front-end development. I worked on AngularJS to develop user interfaces and also contributed to building a mobile application. During this period, I gained hands-on experience with PhoneGap, enabling me to create hybrid mobile applications for both Android and iOS platforms.
+
+One of my most defining career moments came when I moved onsite to Malaysia. As the sole developer for the project, I was entrusted with end-to-end ownership of the solution. I handled both the front end, developed in Angular, and the back end, powered by microservices. From development to deployment, I was responsible for ensuring the project’s success, which honed my problem-solving skills and ability to manage complex systems independently.
+	Here Two factor authentication implementation done while doing the order. Half sent to mobile and half to email.
+
+Upon returning to India, I took on a leadership role where I led a team of five engineers to support one of the largest leading banks’ mobile applications. My responsibilities extended beyond development to resolving technical challenges, mentoring my team, and ensuring timely delivery of high-quality features. This role deepened my understanding of how to align technical solutions with business needs while managing a team effectively.
+
+In my subsequent assignment, I worked as a Lead Full Stack Developer, where I was also involved in providing technical architecture solutions. I played a crucial role in designing and implementing CI/CD pipelines for applications, which streamlined the development and deployment processes. This experience allowed me to bridge the gap between development and operations, ensuring seamless releases and improved productivity.
+
+Over the course of my career, I have developed strong expertise in a broad technology stack, including HTML5, CSS3, JavaScript, React, Angular, Node.js, Java, Spring, Spring Boot, and microservices. My ability to adapt to new challenges and take ownership of projects has been a constant throughout my journey.
+
+What excites me most is leveraging my technical expertise and leadership experience to solve complex problems and deliver value-driven solutions. I actively keep myself updated with industry trends and advancements, which allows me to stay ahead of the curve and contribute effectively to any team or project.
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Tell Me About Yourself
+I began my career in 2011 at ABC Company as a fresher, focusing on creating RESTful services using the Jersey framework. Early on, I learned the importance of designing scalable APIs and ensuring their quality through rigorous testing and deployment. My contributions helped streamline backend services, which improved system efficiency and reduced downtime.
+
+In my next role, I expanded into front-end development, using AngularJS to build dynamic user interfaces and contributing to a mobile application. During this time, I also gained experience with PhoneGap, which allowed me to deliver hybrid mobile apps for Android and iOS.
+
+A pivotal moment in my career came when I moved onsite to Malaysia, where I took complete ownership of a project. I managed both the front-end development in Angular and back-end microservices, handling everything from development to deployment. This experience taught me how to manage end-to-end systems, optimize performance, and solve critical technical challenges independently.
+
+After returning to India, I transitioned into a leadership role, leading a team of five engineers to support one of the largest banks’ mobile applications. Here, I drove key initiatives such as improving app performance, resolving critical production issues, and mentoring my team to deliver high-quality features. This work significantly improved app stability and user satisfaction.
+
+In my most recent role, I worked as a Lead Full Stack Developer and contributed to technical architecture solutions. I spearheaded the design of a CI/CD pipeline using GitLab, which reduced deployment time by 40% and improved development efficiency. I also collaborated with cross-functional teams to implement scalable microservices architectures that supported millions of transactions daily.
+
+Key Highlights
+Ownership & Impact: Successfully owned and delivered critical projects, improving app performance and scalability.
+Scalable Solutions: Designed microservices that supported high traffic while maintaining low latency.
+Leadership: Led a team of engineers to deliver complex projects on time, resolving technical roadblocks collaboratively.
+Continuous Learning: Passionate about staying ahead of trends, exploring modern tech stacks, and delivering innovative solutions.
+At this stage in my career, I’m excited to bring my expertise to a dynamic team where I can design impactful systems, solve challenging problems, and contribute to creating world-class products.
+
+ 

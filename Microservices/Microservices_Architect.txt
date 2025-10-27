@@ -1,0 +1,335 @@
+Software Architect:
+===================
+	1) Infrastructure Architect. --> Servers, VMs, Network, Storage etc
+	2) Software Architect. --> 
+	3) Enterprise Architect. --> Works with top level management (CEO, CIO etc)
+	
+	- Developer knows what can be done where architect know what should be done.
+	- Baseline Requirements -> Architect thinks below points --> Fast , secure, reliable and easy to maintain.
+	- Path --> Developer - Team Lead - Jr. Architect - Architect.
+	
+Architect Mindset:
+==================
+	- Understand business - Deep understanding of business, weekenses, strengths, competitors and future line of business.
+	- System Goals - Describes the effect of the organization.
+		Eg: Streamline the recruitement process, Improve police response time in criminal report.
+	- Client's client - 
+	- Talk to right people with right language.- Use different language with different people if we are taking to Project manager, we should talk like this help us in reducing time to develop, with developer use technical stack related words and with CEO business benefits.
+	
+Architecture Process:
+===================== 
+	- Understand System Requirment.
+	- Understand Non Functional Requirements. - Users, heavy load, performance, volumes, concurrent users.
+	- Map the components.
+	- Select the technology stack. -- Backend, Frontend, Database, datastore, cloud platforms etc.
+	- Design the architect document.
+	- Write the document.
+	- Support the team.
+	
+	- Understand System Requirment
+	------------------------------
+	* Functional requirements:( What system will do)
+	
+		- Business flows -> Login, storing photos etc.
+		- Business services -> Login service.
+		- User Interface -> Styles, color guidence.
+		
+	* Non-Functional requirements: (What system deal with)
+		
+		- Performance
+		- Load
+		- Data Volumes
+		- Concurrent users.
+		- SLA.
+		
+		- Always talk in numbers and latency, throughput.
+			- Latency : How much time does it take to perform single task.
+			- Throughput: How many tasks can be performed in a given time unit.
+			- Load : How many concurrent requests can be handled without crashing.
+			- Data Volumes: How much data can be accumulated over the time.
+			- SLA : Required uptime for the system.
+			
+Application Types:
+==================
+
+	- Web Apps - User interfaces, initiated actions, large scale, short focused actions.(It serves html)
+	- Web API - Rest used to access the data using url, request data etc. Returns data not html.
+	- Mobile - 
+	- Console - command line applications. Like npm, linux terminal etc.
+	- Service - service manager in windows. Whenever any applications, we open and stop app in task manager.
+	- Desktop - Microsoft office etc.
+	
+Technology Stack:
+=================
+
+	- Once it is decided, it is irreversible. Heavily documented and grouped decision.
+	- Tech community ( Stack overflow)
+	- Popularity of tech.
+	
+	* Backend Tech:
+	---------------
+		- .Net, .Net core, Java, node, python.
+		- Always first list down pros and cons.
+		
+	* Front Tech:
+	-------------
+		- Html5, css3, Javascript, Angular, React.
+		- Mobile app - Native apps vs Hybrid apps.
+		- Cross platforms - React Native./Xamarin
+		- When we have lot of features which access native features of mobile, then have to go for Native applications.
+		
+	* Data Store:
+	-------------
+		- Two types of data store are available 1) Sql 2) No-sql
+		*SQL:
+		-----
+		- SQL( relational DB) : Oracle, Mysql etc.
+		- Transactions : If user purchased an item, then that value should be decreased by 1. This is transaction.
+		
+		* NO SQL:
+		---------
+		- Scale and Performance.
+		- MongoDB is example.
+		- Huge data will be maintained in no-sql.
+		- Schema less, data stored in JSON format.
+		- There is no single query language available, for every DB there will be different query language.
+		
+		
+Quality Attributes(ilities):
+============================
+
+	- The system must work under heavy loads, but should not waste money on unused resources.
+	
+	* Scalability:
+	--------------
+		- Adding computer resources without any interruption.
+		- Eg: In e-commerce application, huge load expected on black friday.
+		- Add VM and inform load balancer about new VM.
+		
+	* Manageability:
+	----------------
+		- Monitoring the application and take an action accordingly.
+		
+	* Modularity:
+	-------------
+		- A system that is built from building blocks, that can be changed or replaced with other without effecting whole system.
+	
+	* Extensibility:
+	----------------
+		- A system that is extened without effecting the existing system.
+		
+	* Testeability:
+	---------------
+		- How easy to test the application.
+		- Unit testing, regression, end-to-end testing.
+		
+		
+Components Architecture:
+========================
+
+	- A piece of code runs in single process.
+	
+	* Layers:
+	---------
+		- Expose user interface/UI -> UI
+		- Execute logic. -> Business Layer (BL)
+		- Store data in DB. -> Data access layer (DAL)
+		
+		- It will loosely couple the code.
+		- Exception Handling in between the layers.
+		- Layer vs Tier -> In layer there is no networking calls involved , it shares same computing resources. where as Tier, here network included.
+		
+	* Interfaces:
+	-------------
+		- Declares the signature of the implementation.
+		- Always use interfaces instead of classes to make code more moduler.
+		
+	* Dependency Injection:
+	-----------------------
+		- A one object supplies the object of another object.
+		- Factory Injections
+		- Constructor Injection.
+	
+	* SOLID:
+	--------
+		*Single Responsibility Principle.
+		----------------------------------
+			- Each class, method or module should have one and only one responsibility.
+			- What should be written, where should be written logging are different single responsibility.
+		* Open/Closed Principle.
+		------------------------
+			- A software entity should be open for extensibility but closed for modification.
+			- Inheritance capability is nothing but extending functionality without modification code.
+			- Plug-ins also do the same.
+		* Liskov substitution principle.
+		---------------------------------
+			- If S is type of T, then objects of type T can be replaced with objects of type S, without altering any desired properties of the program.
+			- Similar to Polymorphism.
+			- Deals with behavioural subtypes.
+		* Interface Segregation principle.
+		----------------------------------
+			- Many client-specific interfaces are better than one general purpose interface.
+			- Instead of many methods in single interface, which forces the class to implement all the methods instead separately maintain different interfaces with few methods.
+		* Dependency Inversion principle.(DI)
+		--------------------------------------
+			- Don't use directly new keyword in class to use that class, instead use concept of DI.
+			
+	* Naming Convensions:
+	---------------------
+		- make the code understandable and readable.
+		- Types of convensions:
+			- CamelCase -> carEngine(Lower camel case), CarEngine( Upper camel case)
+			- lower_case_separated_by_underscore -> Python & Ruby.
+			- capitalized_with_underscore -> DAYS_IN_WEEK for constants.
+			- Hungarian notation -> Type information is part of name Eg: strFirstName
+			- Class -> Nouns, Method -> Imperative verbs.
+			
+	* Exception Handling:
+	---------------------
+		- Catch Exceptions only if you have to do something with it.( Retriving the trasactions)
+		- Catch only specific exceptions.
+		- Use try-catch on the smallest code fragments possible.
+	
+	* Logging:
+	----------
+		- Track Errors.
+		- Gather Data -> Which module is visited frequently.
+		- Kibana is the tool recently used mostly.
+		
+
+Design Patterns:
+=================
+	- A collection of general reusable solutions to the common problems in software design.
+	- No need to reinvent the wheel.
+	- Gang of Four is the book for design patterns.
+	
+	* Factory Pattern:
+	------------------
+		- A pattern which is used to create the objects without specifying the class.
+		- Spring Bean factory is also example of factory design pattern.
+		- Note: New is glue.
+		
+	* Repository Pattern:
+	---------------------
+		- Abstraction provided above the data layer.
+		- If developer used one sql query in multiple methods and one of column name changed later. Then developer has to change in all the places. To overcome this problem, repository pattern will be used.
+		- Once we use any CRUDRepository or JNDIRepository only need to change in repository not in all sql queries.
+		
+
+System Architecture:
+====================
+	- How system will work on heavy loads?
+	- How complicated to update the process.
+	- What will happen when system crashes.
+	
+	* Loose Coupling:
+	-----------------
+		- Making sure the services are not strongly tied to other services.
+		- When there multiple services and few services are dependent on the others. To overcome this problem, we can use of Gateway.
+		- In Gateway, we can have the urls stored. when any url changes, no need to change in the services instead we can do it in gateway.
+		
+	* Stateless:
+	------------
+		- The application's state is stored in only two places - the datastore and user interface.
+		- state is nothing but application data.
+		- Supports scalability & redundancy in system.
+		
+	* Caching:
+	----------
+		- Using caching we bring data to user much faster way.
+		- Eg -> browser cache.
+		- Redis is caching engine.
+		- what to cache ? Frequently accessed and rarely modified data.
+		- Stocks data we cann't maintain in cache as it is frequently changes.
+		- 1) In memory in process cache 2) Distributed cache.
+		- Distributed -> Data is stored in separate process. Auto node synching.
+		- Performance in slow in distributed.
+		
+	* Messaging:
+	------------
+		- Communication between various services.
+		- Not just REST API.
+		- Criteria -> Performance, Message size, Executional Module, Feedback& Reliability, Complexity.
+		
+		* Rest:
+		-------
+			- Http based messaging service.
+			- Get, Post, Put.
+			- Performance is very fast.
+			- Message size 8k for Get, Post dozen of MB.
+			- Message status codes are useful for accessing using this feedback.
+			- Extremely easy to implement.
+			
+		* HTTP Push notifications:
+		---------------------------
+			- Websocket.io used to implement.
+			- Used mostly in chat applications.
+			- Performance is excellent.
+			- Message size is limited.
+			- This will work as fire and forget.(Least reliable)
+			
+		* Queue:
+		--------
+			- RabbitQ or MQ engines used for messaging.
+			- Messages are processed in sequence.
+			- Pushing and Polling queue decreases the performance. Poor performance.
+			- Very reliable as we will know about push and poll.
+			- requires training and  setup.
+			- Complex system with huge data. When order and reliability is top priority.
+			
+		* File Based or Database based:
+		--------------------------------
+			- Similar to Queue but here data is stored in file/database where as in queue, data stored in queue engine.
+			
+	* Logging & Monitoring:
+	-----------------------
+		- What happens when something goes wrong.
+		- Central logging service: Implementation using API and watch holders. All services should log in single place instead of logging in different places like files, DB, nosql.
+		- CorrelationID -> If any transactions included using two services and error occurred in one service. Two identify it properly, using this correlationId we can maintain system easily.
+		
+External Considerations:
+=========================
+	- Deadlines.
+	- Existing Dev team and skills
+	- IT Support. - Developer should only develop. other products like queue engines or things should be maintained by product team.
+	- cost. - Rule of thumb use existing tools.
+	
+Architecture Document:
+======================
+	- As simple as simple, plain english and get into minds of reader.
+	- Visualize using comfortable tools.
+	
+	- Background -> Length(1 Pages ) + Audience ( Team & Management)
+	- Requirements -> Length(1 Pages ) + Audience ( Team & Management)
+	- Executive Summary -> Length( 3 Pages) + Audience ( Management )
+	- Architecture Overview -> Length (<=10 Pages) + Development Team & QA lead
+	
+	- Document Structure
+	- Background & Overview Section
+	- Requirement Section
+		- Functional -> What the system do?
+		- Non Functional -> With what should the system deal?(Performance, Load, Data Volumes, SLA and more)
+		- These should be brief, bulleted and should not be more than 3 lines.
+	- Executive Summary Section
+		- Tips:
+			- Use charts and diagrams.
+			- Write it after writing the rest of the document.
+			- Do not repeat yourself
+			
+CASE STUDY:
+===========
+			
+		
+		
+		
+
+		
+		
+	
+	
+			
+		
+		
+		
+	
+	

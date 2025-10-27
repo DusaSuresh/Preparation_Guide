@@ -1,0 +1,271 @@
+* CSS --> Cascading style sheet. ( Inline css --> Internal css(<style>) --> External css.
+
+* Syntax css --> {Property: value} ( Eg: color: green, font-famility: calibri etc).
+
+* Link css in html --> 3 ways  we can include css 
+	1) inline --> inside element using styles (Eg: <h1 styles={"color:green"}>)
+	2) Internal css --> <style> inside head tag and write the css.
+	3) Exteranl css --> Write css in another file and link using <link rel="stylesheet" href="styles.css">
+	
+* Selectors --> Using selectors we can defines css. Eg: h1,p,id,class,psuedo elements etc.
+
+* Combined Selectors --> If we want to give same properties to different elements, we can give like this Eg: h1,p,span { color:green,font:calibri}
+
+* Type Selectors --> Element itself is type. Eg: h1{color:green}
+
+* class selectors --> .className { color:green }
+
+* id selectors --> #id { color:green }
+
+* Attribute selectors --> <a href="www.google.com"> Eg: a[href="www.google.com"]{color:green}
+
+* Psuedo class selectors --> Used to style the states of elements. Eg: visited, hover, etc. we have many states of elements.
+	Eg: <h1>Suresh</h1> ==> h1:hover { color: green }  Eg: selector: psuedo-class { property: value}
+	
+* Psuedo Element Selectors --> p::first-line{color:green}, p::nth-child, p::after, p::selection etc.
+
+* combinator selectors --> Eg: If want to select all the <p> tags in article, we can do using this.
+	" article > p { color:green} --> Then this will apply color green to all p elements in the article element.
+	
+* Universal selector --> with * {color:green} --> This will select entire document.
+
+* span.className { Property:value} --> This will be applied to class inside span element.
+
+* Descendent selector --> <li><em>Surehs</em></li> --> li em { color:green} --> This will change color of em which is inside li.
+
+* h1+p{color:green} --> This will select next element of h1 tag that is p. If we have another tag between these two, then it won't work.
+
+* body h1+p .className ---> This will select the class name insde body then inside h1+p.
+
+* RGB with alpha --> red green blue with intensity of the colors. these will be between 0 -255. Alpha is nothing but opacity.
+
+* Background properties:
+
+	background-color: aqua;
+    background-image: url("image.png");
+    background-position: top;
+    background-size: 100px;
+	
+* Font Family:
+
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; , is nothing but it will select next font if we miss to get the first one
+	font-size: 50px;
+	font-style: italic;
+    font-weight: 400; --> it is from 100 - 900
+	
+* Formatting text:
+
+	text-align : center; left;right;justify;
+	text-decoration: overline; underline;line-through;underline overline;
+	text-transform: capitalise; uppercase;lowercase;full-width;
+	text-indent:0;30%;
+	letter-spacing: 0;1em;
+	word-spacing:0; 1em;
+	text-shadow: 1px 1px 1px green;
+	
+* Shorthand Property:
+
+	background: color image repeat position Eg: green url('image.png') no-repeat top;
+	font: style weight size line-height font-family
+	border: width style color Eg: 1px solid green;
+	margin: top right botton left;
+	
+=======================================================================================
+* Units Css:
+
+	1) Absolute units: these are fixed units, which cann't be changed. --> cm. px, pt(points), pc
+	2) Relative units: these units are dependent on others. Eg: 10%
+		% --> This is percentage of parent element.
+		em --> Relative to the font-size of the element.(2em means 2 times the size of current font.
+		rem --> font size of the root element.
+		vw --> Relative to 1% of the width of the view port.
+		vh --> Relative to 1% of the height of the view port.
+
+* BOX MODEL:
+
+Content Area --> Padding --> Border --> Margin this is called box model.
+
+Margin Vs Padding --> Background color will be attached to the padding but in margin background color won't be available.
+					  Margins won't have any colors.
+					  
+* Styling Lists:
+
+list-style-type: square/circle/roman/
+list-style-position: inside/outside
+list-style-image:url(image.png)
+
+* float: left; /* This will come out of the box model*/ --> To overcome this, we need to use overflow hidden in parent tag.
+
+* Tables Styling:
+
+table, tr, th, td{
+	border : 1px solid black;
+	border-collapse: collapse;
+	padding: 10px;
+	border-spacing:5px;
+}
+
+=============================================================================================================================
+
+* Cascading inheritance specificity :
+
+	Cascading --> Order of the styles is important, It will take the last styles given for the same element.
+	specificity --> ul#summer-drinks li if we hover on this id, it will show the specificity.
+	inheritance --> All the properties of parent will be inherited into child element.
+	
+color: inherit/initial/unset;
+
+* !important key word ---> 1000 is the specificity of the important.
+
+* Overflow : overflow: visible(default)/hidden/scroll/auto.
+	scroll/auto --> Both will be same but only difference if content is not overflowing, auto won't show scroll bar but in scroll it will show.
+	
+* img {
+	object-fit :cover/contain/cover/fill
+	
+===========================================================================================================================
+
+* clip-path: clip-path: circle(40%)/polygon(50% 0, 100% 50%, 50% 100%, 0 50%);  --> These attributes applied to the image , so that image will be displayed in circle/polygon/eclipse etc. This property can be generated using any online site.
+
+	Eg: <image src"/image.png" style="clip-path: circle(40%)"/>
+	
+* box-sizing: content-box/ box-sizing: border-box -->
+	
+	content-box --> width/height + padding + border Eg: 100px(width) + 2 * xpx (right & left padding) + 2 * xpx (right &left border)
+	box-sizing --> width/height - padding - border Eg: 100px(width) - 2 * xpx (right & left padding) - 2 * xpx (right &left border)
+
+* z-index --> It is used to make the component come front or back.
+
+============================================================================================================================
+
+* Responsiveness --> It is a technique to design our web site as per the layouts of devices so that it should look good in all the devices.
+	This can be achieved using media queries/flex box.
+	
+	a) @media screen and ( width :600) {}/ @media (orientation : landscape)/ @media not all and (orientation: landscape)
+	
+	Max columns can be created is 12, if we create more than that then again it will start from first.
+	
+=============================================================================================================================
+
+* Layouts -->
+	Float : left/right --> This property will change the normal layout of html in sequence. Instead depending on left/right, element will be moved.
+	clear :left/right --> This property will make the element to clear from float property. So that it will follow the normal layout.
+	
+	Positions --> With this position, we have to use the top/bottom/right/left.
+	Position : static --> This is the default value, it won't change the normal layout flow.
+	position: relative --> This will take the relative top/bottom/right/left values from the parent element (Eg: top:20px) 
+	position: absolute --> It will break the normal div flow and display the div at given position.
+	position: fixed --> This will not come in normal flow, it will be fixed. Element will be in static position even though we scroll the page.
+		"fixed elements" --> stay in the same position on the viewport, regardless of scrolling. So as you scroll down the page, they seem to 'float' over the content.
+		"sticky elements" --> are similar - they stay in the same position on the viewport, regardless of scrolling, but only within their parent element. When the viewport reaches the end of a sticky element's parent, it will behave like a relatively positioned element.
+	When we use absolute in child element, definitely we have to use relative position in parent.
+	* Parent element should have relative property or else it will take the main parent html as relative.
+	
+===================================================================================================================================
+
+* FlexBox -->  This layout allows us to format easily html. we can align rows verticle or horizontally.
+	- This will be done using "display:flex".
+	- flex-direction: We can change the direction of flex using flex-direction: row/column/row-reverse/column-reverse.
+	- flex-wrap : wrap/nowrap --> This will align the boxes as the view port changs.
+	- align-content: flex-start/flex-end and align-item: these 2 are also properties.
+	Above all properties applied to the flex-container, now will look into items properties.
+	
+	order :1/2 etc --> This will change the order of item in flex.
+	flex-basis: 100px --> This will act as maximum width of item. once the view port changes accordingly it's size reduces or increases.
+	flex-grow: 1 --> This is relatively increase the size of box according to given number.
+	flex-shrink : 1 --> Opposite to flex-grow, it will shrink the size of box.
+	align-self : center/start/end --> This will come in center in cross axis.
+	Shorthand property is : flex 
+	
+=====================================================================================================================================
+
+*GRID LAYOUT --> Grid layout is two-dimensional and flex-box in one-dimensional.
+
+To check whether grid where it is starting, need to click on grid in inspect element where you will find beside container.
+	.container{
+            display: grid;
+            border-radius: 3px;
+            /* grid-template-columns: 200px 200px 200px;  */
+            /* grid-template-columns: 1fr 1fr 1fr; */
+            /* grid-template-columns: repeat(3, 1fr); */
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); //This is to divide the div into columns.
+            grid-gap: 20px;
+            grid-auto-rows: minmax(100px, auto);
+            grid-auto-columns: minmax(50px, auto);
+        }
+		
+	 #item-2{
+            grid-row-start: 2;
+            grid-row-end: 3;
+            grid-column-start: 2;
+            grid-column-end: 3;
+        }
+        
+===============================================================================================================================================
+	
+* Animations -->
+	--> Transition is the main property to give the time limit for the animation.
+	
+	.container{
+            width: 100px;
+            height: 100px;
+            background-color: blueviolet;
+            transition: width 2s height 4s border-radius 4s background-color 4s;
+        }
+        .container:hover{
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: lightcoral;
+        }
+		
+	--> Key frames --> Keyframes we can give in between 0 to 100
+	
+	animation: bouncing 0.5s ease 0s infinite alternative;
+	
+	@keyframes bouncing{
+	0%{bottom:0;box-shadow: 0 5gx black;}
+	100%{bottom:50; box-shadow: 0 0;}
+	
+============================================================================================================================================
+		
+Bootstrap: css + js. This is framework combination of css and js. It is easy to create the any components like nav, footer and other attributes.
+	This f/w contains lot of classes, which we can use directly on elements.
+	Other framewords --> Materilize css, Foundation, sementic.
+	
+CDN : --> content delivery network.
+
+Bootstrap Responsiveness: --> Using container container-sm, container-md
+
+Breakpoints --> sm, md, lg, xl, xxl --> col-sm-6 col-md-4 col-lg-3
+
+Bootstrap Grid System --> Columns will be divided into max of 12. Eg: col-1, col-2 ...col-12
+
+<div class="container bg-light">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3 panel">Col 1</div>
+            <div class="col-sm-6 col-md-4 col-lg-3 panel">Col 2</div>
+            <div class="col-sm-6 col-md-4 col-lg-3 panel">Col 3</div>
+            <div class="col-sm-6 col-md-4 col-lg-3 panel">Col 4</div>
+        </div>
+    </div>
+	
+	
+* Boostrap Components --> <div class="jumbotron bg-light p-5>
+
+
+
+	
+
+	
+
+
+
+
+
+
+
+
+	
+
+	

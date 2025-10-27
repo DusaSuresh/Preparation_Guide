@@ -1,0 +1,98 @@
+ES6 Features: ==>
+=================
+
+	-> ES6 is a new standardized version of javascript that was released in 2015. It is also known as ECMAScript 2015.
+	-> ES6 is the basis for modern programming languages like Angular and ReactJs. With Object-Oriented Classes, Arrow Functions, String Literals etc.
+	-> Below is the list of top ES6 features every JavaScript developer should know,
+
+		Default parameters
+		Template literals (Template strings)
+		Destructuring assignment
+		Arrow function expressions
+		let and const
+		Spread and Rest syntaxes (…)
+		Object.assign() and Object.is()
+		Classes
+		
+		-> Default parameters:
+		----------------------
+			function multiply(num1, num2=10) { //num2 assigned with default value as 10
+			 return num1*num2;
+			}
+			multiply (5,2) //returns 10
+			multiply(3) //returns 30 as num2 has default value = 10
+			
+		-> Template literals (Template strings):
+		----------------------------------------
+			-> Allow embedded expressions, multi-line strings and string interpolation.
+				Eg: let myName = 'Suresh';
+					let myRole = 'FullStack Developer';
+					console.log(`My name is ${myName} and I am a ${myRole}.`); 
+					
+		-> Destructuring assignment:
+		----------------------------
+			-> Array:
+			---------
+				let myName, myRole;
+				let array = ['Suresh', 'FullStack Developer'];
+				[myName, myRole] = array; //positional assignment occurs here
+				console.log(myName, my Role); //Suresh FullStack Developer
+				
+			-> Object:
+			----------
+				let myName, myRole;
+				let object = {myName:'Suresh', myRole:'Software Developer'};
+				({myName, myRole}=object);//properties (keys) are matched with the local variable names
+				console.log(myName, myRole); //Suresh Software Developer
+				
+		-> Arrow function expressions:
+		------------------------------
+			-> With arrow function expressions we can ignore function and return with one-liner code.
+				Eg: let getName = ((firstName,lastName)=> `${firstName} ${lastName}`);
+			-> Unlike ordinary functions, arrow functions do not have their own this.
+
+			-> The value of this inside an arrow function is always bound to the value of this in the closest non-arrow function.
+
+			-> We cannot use new keywords with arrow functions as these are not constructible
+			
+		-> Spread and Rest syntaxes (…):
+		--------------------------------
+		
+			-> Spread syntax expands an array into separate elements, while a rest syntax condenses array elements into a single element.
+				
+				Eg: let addNumbers = (x, y, z) => x+y+z; //returns sum of x, y and z
+					const numbers = [1,2,3];
+					console.log(addNumbers(...numbers));//prints 6
+					
+				Eg: Rest Syntax
+					let addNumbers = (...numbers) => {
+					let result =0;
+					 numbers.forEach(num=> result +=num);
+					return result
+					}
+					console.log(addNumbers(1,2,3));//prints 6
+					
+		-> Object.assign() and Object.is():
+		----------------------------------
+		-> Object.assign():	
+			let person = { height: '176' };
+			let clonePerson = Object.assign({}, person);
+			console.log(clonePerson); // {height:'176'}
+		-> Object.is():
+			let a=10, b=10;
+			Object.is(a,b); //true
+			let c=20;
+			Object.is(a,c);//false
+			let obj1={a:1};
+			let obj2={a:1};
+			Object.is(obj1, obj2);//false, as both objects don't have same reference
+			Object.is(obj1, obj1);//true, both objects have the same reference
+			
+		-> Classes:
+		-----------
+			Class Person{
+			 constructor(name, age){
+			 this.name = name;
+			 this.age = age;
+				 }
+			}

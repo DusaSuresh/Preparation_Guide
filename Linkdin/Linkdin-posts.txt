@@ -1,0 +1,108 @@
+Write content more engaging + use images for formatting + code snippets whereever required. 
+https://carbon.now -- code
+https://lucid.app/ -- charts
+https://typegrow.com/tools/linkedin-text-formatter
+
+----------------------------------------------
+  *** POSTED *** 
+I wanted to start writing the content in linkdin as messages. Below is the description where I wanted to write content which will be understood by the layman and having graphical images(gif) for each point with single liner. Providing heading as well.
+
+When developer wanted to integrate the external endpoint, what are the things need to be get clarification. I have listed below points, give explanations about each point detailed and git as well for easy understanding.
+
+1) Endpoint url.
+2) Request body.
+3) Response format and expected values.
+4) response status codes for each response
+5) dev, non prod and prod urls.
+6) connectivity between our pods and endpoint server.
+7) security , authenication and authorization.
+8) required headers for call.
+9) any security policies or outbond urls whitelisting, vpc level configuration etc.
+
+These are things which I know need to known before integrating with endpoint without any issues. Please don't consider these as point, you modify these and add external points as well which are important for integration. Please provide detailed newsletter kind of message.
+
+
+--------------------------------------------------------------
+2) 
+
+In spring boot microservices project, we are having db details, external endpoints, scheduler configurations, usernames, passwords etc. If we are having all these in application.yml file, then whenever any changes required deployment need. and if we add all these in DB and reading in initial deployment and accessing then also when we change the values in db those are not getting updated. It should be exteranlly call any service to update it. What is the best way to use this , so that then there is no need to redeploy or call any external call. Please provide details about the drawbacks in both ways and provide optimal solution. Consider this service deployed on aws eks. Consider all the things like configMaps, secrets or any other related things which will be best optimal solution. Pls provide linkdin article in best way to understand the layman.
+
+------------------------------------
+3) For any Java developer, we can use of different IDEs for development. Here are the list of short cuts which are more frequently used while development like open file, open class, method heirarchy, comments, setter, getters, constructor creation. Please also you add what short cuts most developers use. most famous IDE like STS, intelliJ, vscode etc. provide it in tabler format as cheetsheet which is helpful for developers.
+
+----------------------------------------
+4) While switching from one IDE to another IDE what are the basic fundementals are required for any developer.
+What precautions has to be taken place.
+----------------------------------------
+
+5) Basic java microservices project setup in any organizations. what needs to be taken first, what are the depencies. how to change the settings.xml accordingly
+
+--------------------------------------
+
+6) what is the difference between normal mvn clean install in our personal system and where incase of in organizations repository.
+How this repositories are maintained. How can we add our own jar files into that repository and how other team members can access that repository. in details about the setting.xml according to organization. what are the best practices to maintain our own repository.
+
+--------------------------------------
+
+*** POSTED *** 
+
+7) In my project, we were having more than 30 microservices and each one has it's own config.json file for dev, uat, prod. These configurations are repetative configurations like database, endpoints in node js services. 
+In initial step what we thought of is to convert these configurations into configMap, secrets for individual microservices and accessed these though the environments variables. As this services list are going more, it was very hard to change in all the services and used miss it in updating in one of the configuration files.
+Or making updates of dev in prod or etc used to happen in project. Which is very tedious task to identify where exactly mistake was gone wrong and debugging. 
+Then we came of with the solution is like maintaining the single configMap and Secrets argoCD/openshift as config file and access that file inside our service conviniently. if any changes will be there in configurations, technical architect used to take care of changing that in single places and getting reflected in all the services.
+Usage: single point entry, multiple updates no need, updated properly in all dev, staging, prod. pls add extra benefits as well.
+
+Please phrase this script in beatiful way, so that every one should understand more clearly about the problem and solution.
+Write content more engaging + use images for formatting + code snippets whereever required. 
+
+which diagram will depect this and give me idea so that I will create in lucid chart.
+
+also include step by step guidence for the config map setup. use code blocks whereever required.
+
+Mainly it should be understood by layman
+
+
+-----------------------------------------------
+
+*** POSTED *** 
+
+Write content more engaging + use images for formatting + code snippets whereever required. 
+Linked in message + easy to understand layman +   happy new year
+
+1) Debugging in life is important till we successed like in development.
+2) Each step like f6, f7, f8 corelated with reallife scenarios.
+3) Each step progress
+4) given happy new year message with as a developer style using above content.
+5) Point wise right steps in debugging in engaging manner
+
+
+---------------------
+*** POSTED *** 
+
+𝗧𝗵𝗲 𝗖𝗼𝗿𝗽𝗼𝗿𝗮𝘁𝗲 𝗘𝘀𝗰𝗮𝗹𝗮𝘁𝗶𝗼𝗻 𝗢𝗹𝘆𝗺𝗽𝗶𝗰𝘀 🏅
+
+Corporate life is basically a daily episode of "How Far Will You Go to Get a Reply?" Here's how the Corporate Escalation Olympics usually go:
+
+
+========================================================
+
+what is whitelisting, from starting of normal onprime servers to recent kubenetis pods. how to whitelist
+
+
+=======================================================
+
+*** POSTED *** 
+
+ what is the use of creating our own repository in companies.
+ provide all the wh answers for it ? like why , what , whom etc.
+ It is should be like funny way of explaining so that useres should wait and read the entire article.
+ how main the reposity and how can keep our own created jar file inside it.
+ How to provide the authorization and authentication to respective dependencies.
+ How to handle all those values in pom.xml
+ how these dependencies downloaded in companies proxies.
+ pls include any other details which has to developers should know about the repository.
+ 
+ =========================================================
+ 
+
+

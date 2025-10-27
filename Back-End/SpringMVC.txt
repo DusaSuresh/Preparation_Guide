@@ -1,0 +1,37 @@
+Spring MVC:
+============
+
+	- Spring mvc dependency is " sprin-webmvc"
+		- spring-webmvc.jar ( In this jar, below are the dependencies. So those will be also downloaded these will be available in sprin-webmvc pom.xml)
+		- spring-beans.jar	spring-context.jar	spring-aop.jar 	spring-core.jar    spring-web.jar ( These are called transient dependency).
+		
+	- Spring-mvc uses the pattern called "Front Controller". Any request coming from browser to application will be first coming to "Dispacher Servlet" then from here it will be redirected to specific url. Dispatcher Servlet acts as "Front Controller".
+	
+	- We have to add the "Dispacher Servlet" to web.xml.
+	
+	- Dispatch Servlet --> "org.springframework.web.servlet.DispatcherServlet"
+	
+		Eg:(web.xml)
+			<servlet>
+				<servlet-name>Dispacher</servlet-name>
+				<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+				<init-param>
+					<param-name>contextConfiguration</param-name>
+					<param-value>/WEB-INF/spring.xml</param-value>
+				</init-param>
+				<load-on-startup>1</load-on-startup>
+			</servlet>
+			<servlet-mapping>
+				<servlet-name>Dispacher</servlet-name>
+				<url-pattern>/spring-mvc/</url-pattern>
+			<servlet-mapping>
+
+	- spring.xml :
+		<beans>
+			<context:component-scan base-package="com.dusa.sample"/>
+			<mvc:annotation-driven/>
+		</beans>
+		
+	- @Controller --> No need to extend HttpServletRequest class in mvc instead simply add the @Controller annotation.
+	- @RequestMapping --> Dispacher servlet will map the controller with the given url.
+	- @ResponseBody --> It will send the response in different formats.

@@ -1,0 +1,245 @@
+ Spring:
+=======
+	- Spring framework is an open source Java platform that provides comprehensive infrastructure support for developing robust Java applications very easily and very rapidly. Spring f/w was initially written by Rod Johnson and was first released under the Apache 2.0 license in June 2003.
+	- Spring provide different modules like IoC for dependency injection, for web f/w it has "Spring MVC", for connecting database 'JPA' etc.
+	- This is called Spring core container.
+	
+	- Spring core - IoC (Beans + Context + Core + spEl)
+	---------------------------------------------------
+	
+	- For spring , below is the dependency.
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artificatId>Spring-context</artificatId>
+				<version>4.4.8</version>
+			<dependency>
+	
+	- Spring-context -->
+	---------------------
+		Will download all the related depencies, those are below.
+		- spring-context.jar
+		- spring-aop.jar
+		- spring-beans.jar
+		- spring-core.jar
+		- spring-expression.jar
+		- commons-logging.jar
+		
+	- Spring Container -->
+	----------------------
+		- Spring Framework provides two of the most fundamental and important packages, they are the 
+			- org.springframework.beans 
+			- org.springframework.context packages. 
+		- Code in these packages provides the basis for Spring’s Inversion of Control/Dependency Injection features.
+		- Spring containers are responsible for creating bean objects and injecting them into the classes
+		
+	- How Dependency Injection Works-->
+	
+		- In spring, everything will be maintained in the form of beans and these are available in container. To access these beans, we need to create the configuration files like spring.xml and provide all the bean details here.
+		- Once we build the application, all the bean will be loaded into container using the bean configuraton file and will be available for access.
+		- When ever any bean is required, container will be providing the specific bean from it.
+		- These below will be configured in below ways.
+	
+
+	- Spring xml based configuration:-->
+	------------------------------------
+		- Spring beans can be accessed using the below 2 interfaces.
+			1) BeanFactory		2)ApplicationContext
+			
+		- BeanFactory -->
+			ClassPathResource resource = new ClassPathResource("beans.xml");
+			XmlBeanFactory factory = new XmlBeanFactory(resource);
+			
+		- ApplicationContext extends the BeanFactory, so it is the super set of BeanFactory.(Enterprise level support)
+			- ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+			
+		- Accesing bean using context like below.
+			Vehicle obj = (Vehicle)context.getBean('vehicle'); --> vehicle is id mentioned in spring.xml for that bean.
+	
+		- Spring bean configuration files(spring.xml)
+		---------------------------------------------
+			<beans>
+				<bean id='vehicle' class='com.dusa.sample.Car'></bean>
+			</beans>
+			
+		- As per the above configuration, if you access like below will get the Car object which implements the Vehicle. If you change it to Bike, will get Bike object into vehicle.
+		
+			Vehicle obj = (Vehicle)context.getBean('vehicle');
+			
+		- Bean Property: (Setter Injection)
+		------------------------------------
+			- Any properties in class, we can configure in file like below and can access using object.
+			- <beans>
+				<bean id="vehicle" class="com.dusa.sample.Car">
+					<property name="brand" value="Tata"/>
+				</bean>
+			</beans>
+			- Like above giving the value in configuration file called setter injections.
+			
+		- Constructor Bean Injection:
+		-----------------------------
+			<beans>
+				<bean id="vehicle" class="com.dusa.sample.Car">
+					<constructor-arg value="TATA"></constructor-arg>
+				</bean>
+			</beans>
+		
+			
+	- Spring Annotation Based Configuration:--> @Component, @Autowire, @Qualifier, @Configuration, @ComponentScan, @Primary
+	-------------------------------------------
+		- In annotation based configuration, no need to mention all the bean defination in xml file. Only required spring to know that we are using annotations in application. To make know about it, do the changes as below in config(spring.xml) file. one more thing, need to add the annotation "@component" on the bean class.
+		
+		- @Component --> org.springframework.stereotype.Component
+		
+		<beans>
+			<context:component-scan base-packages="com.dusa.sample"></context:component-scan>
+		</beans>
+		
+		- Example:
+			@Component
+			public class Car extends Vehicle{
+				public void drive(){
+					syso("Car driving");
+					}
+				}
+				
+		- To access the above car obj, we need to use the decapitalized class name while accessing it ( we use id in xml configuration.)
+			Vehicle obj = (Vehicle)context.getBean('car');
+			
+		- We can also access the object using @Autowire annotation.
+		
+		- Another way to access the annotation based beans as below.
+		
+			In annotation based config, instead of creating spring.xml, we have to create one configuration class as below.
+			
+			@Configuration
+			public class AppConfig{
+				@Bean
+				public Google getPhone(){
+					return new Google();
+					}
+				}
+			
+			ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+			Google pixel7 = factory.getBean(Google.class);
+			
+		- In above scenario, for every bean we need to add the bean in configuration class. To remove all these adding beans configurations, we have the below option to achieve that one.
+		
+			@Configuration
+			@ComponentScan(basePackages="com.dusa.sample")
+			public class AppConfig{
+				
+				}
+				
+		- @Qualifier -> When we are autowiring the "Interface", we will not be knowing which class need to autowired. In this case we can use qualifer annotation to specify the specific class name like below.
+		
+			Eg: @Autowire							@Autowire
+				@Qualifier('className')				@Qualifier('Google')
+				Interface interface.				Phone phone.
+				
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+				
+Spring AOP(Aspect oriented programming):
+----------------------------------------
+	- In Business layer or any layer will be having many methods get called. In each method, if want to log the details like method name and input for that method and also the return value should be logged.
+	- This process will be same for all the methods and a repetative task. To overcome this problem, AOP introduced in spring.
+	
+	- Spring provides very basic level AOP functionalities like method calls, return values logging etc. But if we want field level or high level concepts then we have to go for AOP framework like AspectJ etc.
+	
+	- Dependencies are below for AOP.
+		- spring-aop.jar
+		- spring-aspects.jar
+		- aspectweaver.jar
+		
+	- Aspect -> Aspect is the concern which we are trying to implement here. Eg: Logging, Transaction management or logging.
+	
+	- Pointcut -> It is nothing but what are the methods which we want to intercept and do the things.
+				  Eg: execution(com.dusa.sample.HiByService.*()) --> This expression determines all methods in HiByService service need to be intercepted).
+				  
+	- Advice -> On any aspect, if this point cut is met. Then what code should we want to execute it is nothing but 'Advice'. Simply what happends when the point cut met.
+	
+	- All the above points are compile time operations.
+				  
+	- JointPoint -> It comes at runtime, specifically execution of AOP method which we defined.
+	
+	Eg: @Aspect, @Before, @After
+	
+	@Aspect
+	@Component
+	class MyAspect{
+		@Before("execution(com.dusa.sample.HiByService.*(..)))
+		public void before(JointPoint jointPoint)
+		{
+			syso("Before");
+			syso(jointPoint.getSignature().getName());
+			syso(jointPoint.getArgs());
+		}
+		
+		@After("execution(com.dusa.sample.HiByService.*(..)))
+		public void after(JointPoint jointPoint)
+		{
+			syso("After");
+			syso(jointPoint.getSignature().getName());
+			syso(jointPoint.getArgs());
+		}
+	}
+	
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Spring Acurator:
+----------------
+	- Application health managed by the Acurator. This will help you production ready features to help you manage and monitor application.
+	
+	- Dependencies are below for Acurator.
+		- spring-boot-starter-acurator.jar
+		
+	- Once we add above dependency, acurator automatically provides the below endpoint.
+		
+	- http://localhost:8080/health - To check the health return below json.
+		{
+			"status": "UP",
+			"diskspace": {
+				"status": "UP",
+				"total": 23423423,
+				"free": 124343
+				},
+			"db":{}
+			}
+			
+	- http://localhost:8080/beans --> It will return all the beans used in the application.
+	
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Spring Bean Scopes:
+-------------------
+	- Beans are managed by the spring core container. These can be accessed using BeanFactory or ApplicationContext.
+	- Once the application context intialized , this will read the spring.xml(configuration file) to create the beans.
+	
+	- By default all the spring beans are singleton.
+	
+	- @Singleton - Only once per spring container.
+	- @Prototype - New beans created with every request or reference.
+	
+	- Web-aware context beans
+	
+	- @Request - New bean per servlet request.
+	- @Session - New bean per session.
+	- @Global - New bean per global http session.
+	
+	- We can specify it in xml file	
+		<beans>
+			<bean id='sample' class='com.dusa.sample.Sample' scope='prototype'/>
+		</beans>
+		
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	
+	
+		
+	
+	
+
+	
+	
+		
+		
+			

@@ -1,0 +1,248 @@
+
+Core container --> Beans + Context + Core + spEl
+
+1) Spring
+	spring-context
+		spring-core.jar
+		spring-expression.jar
+	
+2) spring-webmvc
+
+org.springframework.web.servlet.DispatchServlet
+
+xml config for beans
+Annotation based
+
+
+@Autowire
+@Qualifier
+@Component
+@controller
+@RequestMapping
+@RequestParam
+@Bean
+@Service
+@Repository
+
+By using below 3 annotations on WebMvcConfigAdapter extended class, no need to write component on every class.
+@EnableWebMvc
+@Configuration
+@ComponentScan(basePackage="{com.suresh}")
+
+AbstractAnnotationConfigDispatcherInitializer class for to remove the dependency on my-servlet.xml bean configuration.
+
+Spring:
+=======
+	- Spring framework is an open source Java platform that provides comprehensive infrastructure support for developing robust Java applications very easily and very rapidly. Spring f/w was initially written by Rod Johnson and was first released under the Apache 2.0 license in June 2003.
+	- Spring provide different modules like IoC for dependency injection, for web f/w it has "Spring MVC", for connecting database 'JPA' etc.
+	- This is called Spring core container.
+	
+	- Spring core - IoC (Beans + Context + Core + spEl)
+	---------------------------------------------------
+	
+	- For spring , below is the dependency.
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artificatId>Spring-context</artificatId>
+				<version>4.4.8</version>
+			<dependency>
+	
+	- Spring-context -->
+	---------------------
+		Will download all the related depencies, those are below.
+		- spring-context.jar
+		- spring-aop.jar
+		- spring-beans.jar
+		- spring-core.jar
+		- spring-expression.jar
+		- commons-logging.jar
+		
+	- Spring Container -->
+	----------------------
+		- Spring Framework provides two of the most fundamental and important packages, they are the 
+			- org.springframework.beans 
+			- org.springframework.context packages. 
+		- Code in these packages provides the basis for Spring’s Inversion of Control/Dependency Injection features.
+		- Spring containers are responsible for creating bean objects and injecting them into the classes
+		
+	- How Dependency Injection Works-->
+	
+		- In spring, everything will be maintained in the form of beans and these are available in container. To access these beans, we need to       create the configuration files like spring.xml and provide all the bean details here.
+		- Once we build the application, all the bean will be loaded into container using the bean configuraton file and will be available for access.
+		- When ever any bean is required, container will be providing the specific bean from it.
+		- These below will be configured in below ways.
+	
+
+	- Spring xml based configuration:-->
+	------------------------------------
+		- Spring beans can be accessed using the below 2 interfaces.
+			1) BeanFactory		2)ApplicationContext
+			
+		- BeanFactory -->
+			ClassPathResource resource = new ClassPathResource("beans.xml");
+			XmlBeanFactory factory = new XmlBeanFactory(resource);
+			
+		- ApplicationContext extends the BeanFactory, so it is the super set of BeanFactory.(Enterprise level support)
+			- ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+			
+		- Accesing bean using context like below.
+			Vehicle obj = (Vehicle)context.getBean('vehicle'); --> vehicle is id mentioned in spring.xml for that bean.
+	
+		- Spring bean configuration files(spring.xml)
+		---------------------------------------------
+			<beans>
+				<bean id='vehicle' class='com.dusa.Sample.Car'>
+			</beans>
+	
+
+
+Maven:
+=======
+	- It is used for downloading the project dependencies and also to compile, build and package the project.
+	- pom.xml is the mail configuration file of maven.
+	- It consists the following important tags.
+		- Project -->
+		- GroupId --> It is nothing but companies unique identifier. ( com.dusa)
+		- ArtifactId --> It is specific project name. (Sample)
+		- Package --> groupId + artificatId ( com.dusa.sample)
+	- maven first check the dependencies available in local repository, if it is not available then it will download from the remote.
+	- Sample Dependency format in pom.xml	
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artificatId>Spring-context</artificatId>
+				<version>4.4.8</version>
+			<dependency>
+		</dependencies>
+	- archetype --> It is nothing which type of project you wanted to create while creating the application in sts using maven project.
+	
+
+Spring Factory Bean:
+====================
+	- Spring container behaves as factory of beans.
+	- BeanFactory reads the spring xml bean configuration and produces the required bean
+	- BeanFactory vs ApplicationContext.
+	
+	
+Spring Security:
+================
+	- LDAP + oAUTH + Bcrypt
+	- Login/Logout
+	- Authentication and Authorization
+	- spring-boot-starter-security
+	- Create class by extending WebSecurityConfigAdapter and with @configuration,, @EnableoAuth2Sso and @EnableWebSecurity annotations.
+	- Override userDetailsService method for inmemory or static passwords.
+	- To validate with the DB passwords, override authProvider() method and use DaoAuthenticationProvide() class for validating it.
+	- To validate with oAUTH(gmail/facebook), override configure method.
+	
+JWT(JSON Web Tokesn):
+=====================
+	- HTTP stateless protocol.
+		- Session Tokens and JWT Tokens
+		- session Tokens -> When user logins, server will generate the token and send it back to client. According to client implementation it will store in cookies and send it back in sub sequent request and will be validated by server.
+			Eg: Support tickent, no need to get all the details from user when user comes again. Only have to get the ticket.
+		- Above session tokens will not work in load balancer case.(It can be achieved using sticky load balancer).
+		- Here token will be validated with the details available in Server.
+		
+	JWT : Here once the user validated, server will send all the json data of user in encrypted with signed.
+		- We can consider it as value of user.
+		
+		- For validating token, OncePerRequestFilter
+		
+SpringBoot: Spring Boot 2.7.5
+===========
+	- In pom.xml --> spring-boot-starter-parent, spring-boot-starter-web.
+	- It will give production ready configuration.
+	- Embedded server will be in jar file.
+	- Starter project will be given by spring boot.
+	- DI --> Laptop example, Laptop is dependency on RAM or harddrive.
+	- ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class);
+	- @scope(value="prototype") -> It will create multiple objects.- Objects will be created only when we call context.getBean() method, but where as singleton scope object will be created once the application starts running.
+	- @Qualifier - If we create the bean with @component("lap1"), we can access using the component name instead of class like @Qualifier("lap1")
+	
+	- WebApp:
+	---------
+	- spring-boot-starter-web.
+	- jsp files should be created in "webapp" folder.
+	- @Controller - on class, @RequestMapping, @ResponseBody --> on every method.
+	- tomcat-jasper jar will be used for working with jsp files.
+		application.properties: To change the default folder webapp to others and not provide extensions in return.
+		-----------------------
+			- spring.mvc.view.prefix = /pages/
+			- spring.mvc.view.sufix = .jsp
+	- ModelAndView mv = new ModelAndView()
+		mv.addObject("name", "suresh");
+		mv.setViewName("home");
+		
+	- @SpringBootApplication = @EnableAutoConfiguration + @Configuration + @ComponentScan
+	
+	- @EnableAutoConfiguration – Auto-configuration refers to creating beans automatically by scanning the classpath.
+	
+	- @ComponentScan - Typically, in a Spring application, annotations like @Component, @Configuration, @Service, @Repository are specified on classes to mark them as Spring beans. The @ComponentScan annotation basically tells Spring Boot to scan the current package and its sub-packages in order to identify annotated classes and configure them as Spring beans.
+	
+	- @Configuration - Designates the class as a configuration class for Java configuration. In addition to beans configured via component scanning, an application may desire to configure some additional beans via the @Bean annotation as demonstrated here. Thus, the return value of methods having the @Bean annotation in this class are registered as beans.
+	
+	- CrudRepository/ JPARepository
+	- @PathVariable -- /main/{name}
+	- jackson-core.jar is responsible for converting objects into json.
+	- ContentNegotition --> It is nothing but response in different formats like json/xml etc.
+	- @RestController == @Controller + @ResponseBody
+	- @RequestBody == To accept the raw data in json format.
+	- @RequestMapping -- To provide the url of the service by default it is get method.
+	- @GetMapping, @PostMapping.
+	- SpringDataRest --> There is no need to write the controller, Repository itself will create all the services.
+		@RepositoryRestResource(collectionResourceRel="aliens", path="aliens")
+		
+Swagger: springfox-swagger2, springfox-swagger-ui
+=================================================
+	- Documenting the API.
+	- Swagger specificiation, so we have to use spring dependency.
+	- Enabling swagger and configure swagger.(It generates the json documentation)
+		- Step1: springfox-swagger2 dependency
+		- Step2: Enable swagger 
+				@EnableSwagger2 annotation on the mail class file with @SpringBootApplication.
+		- Step3: Access url http://localhost:8080/v2/api-docs
+		
+		- springfox-swagger-ui 
+		- https://localhost:8080/swagger-ui.html
+		
+	- Customize the documentation:
+		- "Docket" is the object on which we can configure the our details.
+		- new Docket(DocumentationType.SWAGGER_2).select() will get the builder object. It has all the methods for customization.
+		- @ApiOperation annotation to provide the details of api in documentation.
+		- @ApiParam - To provide the param details what is it
+		- @ApiModel - To give details of model.
+		
+Logging:
+==========
+	- Normal way of logging using org.slf4j.Logger
+		Logger logger = LoggerFactory.getLogger(MyClass.class);
+		
+	- Once we create the any spring-boot web project, below dependency will be added.
+		spring-boot-starter-web
+			spring-boot-starter-logging
+				spring-boot-jcl(Spring commons logging bridge).
+				
+	- Logback is successor of log4j
+	- logging level in spring-boot default is "info".
+	- We can configure the root levels using application.property file	
+		logging.level.root = TRACE
+		logging.file, logging.file.max-size etc.
+		
+	- Instead of providing the details in properties file, we can make use of xml configuration as well.
+	- spring boot will look for the below 2 files.
+		- logback-spring.xml
+		- logback.xml
+	- Log levels: info, debug, error, trace
+	- Handlers/Appenders in log4j : console, File Handler, Rolling
+	- Different logging implementation --> log4j, SLF4J(Faced library), logback, log4j2
+	- SLF4J is like an API, which internally calls log4j or any other implementations.
+	
+	
+		
+		
+		
+	
+	
+		
+	
