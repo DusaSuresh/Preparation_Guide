@@ -1,0 +1,240 @@
+AT&T Hackerrank - 11/11/25
+Question 1 — NodeJS: ExpressJS Middleware Basics
+✅ Problem
+
+Create an Express middleware that:
+
+Adds a trace object to every /tasks route request.
+
+The trace object contains:
+
+id → unique ID (string)
+
+timestamp → epoch time (UTC)
+
+path → request path (without query params)
+
+Sets the header x-request-id with the same ID.
+
+Mount middleware only for /tasks routes.
+
+Use shortid for generating unique IDs.
+
+Export middleware as default (ES module syntax).
+
+✅ Solution
+middleware.js
+import shortid from "shortid";
+
+const middleware = (req, res, next) => {
+  const trace = {
+    id: shortid.generate(),
+    timestamp: Date.now(),
+    path: req.path,
+  };
+
+  req.trace = trace;
+  res.setHeader("x-request-id", trace.id);
+  next();
+};
+
+export default middleware;
+
+app.js
+import express from "express";
+import middleware from "./middleware.js";
+import tasksRouter from "./routes/tasks.js";
+import indexRouter from "./routes/index.js";
+
+const app = express();
+
+// Only for /tasks routes
+app.use("/tasks", middleware, tasksRouter);
+
+// Other routes remain normal
+app.use("/", indexRouter);
+
+export default app;
+
+
+✅ Why it works
+
+ES module syntax (import/export default) — compatible with package.json having "type": "module".
+
+Middleware attached only for /tasks.
+
+Adds x-request-id header and trace object properly.
+
+🧩 Question 2 — React: Timer Component
+✅ Problem
+
+Create a React Timer component that:
+
+Starts automatically from a given initial value (prop).
+
+Decrements every second.
+
+Stops automatically at 0.
+
+Has a Stop Timer button to stop manually.
+
+Has these data-testid attributes:
+
+timer-value (show current value)
+
+stop-button (stop the timer)
+
+✅ Solution
+Timer.jsx
+import React, { useEffect, useState } from "react";
+
+const Timer = ({ initial }) => {
+  const [time, setTime] = useState(initial);
+  const [isRunning, setIsRunning] = useState(true);
+
+  useEffect(() => {
+    if (!isRunning) return;
+
+    const timerId = setInterval(() => {
+      setTime((prev) => {
+        if (prev > 0) return prev - 1;
+        clearInterval(timerId);
+        return 0;
+      });
+    }, 1000);
+
+    return () => clearInterval(timerId);
+  }, [isRunning]);
+
+  const stopTimer = () => setIsRunning(false);
+
+  return (
+    <div>
+      <h1 data-testid="timer-value">{time}</h1>
+      <button data-testid="stop-button" onClick={stopTimer}>
+        Stop Timer
+      </button>
+    </div>
+  );
+};
+
+export default Timer;
+
+
+✅ Why it works
+
+Uses useState for current value and useEffect for countdown.
+
+clearInterval ensures cleanup.
+
+Stops automatically at 0 or manually on button click.
+
+Compatible with Jest + React Testing Library tests using jest.useFakeTimers().
+
+🧩 Question 3 — Java Interface: Building, School, Hospital
+✅ Problem
+
+Implement Building interface with:
+
+void floorCompleted(int floorNumber);
+void printStatus(int floorNumber);
+void printNumberOfFloors();
+
+
+Implement School and Hospital classes that:
+
+Have an int[] floors array.
+
+Set all elements to 0 (not completed).
+
+Mark floors completed by setting 1.
+
+Handle invalid floor numbers.
+
+Print messages exactly as specified.
+
+✅ Solution (in one file, e.g., Solution.java)
+interface Building {
+    void floorCompleted(int floorNumber);
+    void printStatus(int floorNumber);
+    void printNumberOfFloors();
+}
+
+class School implements Building {
+    private int[] floors;
+
+    public School(int n) {
+        floors = new int[n];
+        System.out.println("A school is being constructed");
+    }
+
+    @Override
+    public void floorCompleted(int floorNumber) {
+        if (floorNumber > floors.length || floorNumber <= 0) {
+            System.out.println("Floor number " + floorNumber + " does not exist in school");
+        } else {
+            floors[floorNumber - 1] = 1;
+            System.out.println("Construction for floor number " + floorNumber + " completed in school");
+        }
+    }
+
+    @Override
+    public void printStatus(int floorNumber) {
+        if (floorNumber > floors.length || floorNumber <= 0) {
+            System.out.println("Floor number " + floorNumber + " does not exist in school");
+        } else if (floors[floorNumber - 1] == 1) {
+            System.out.println("Construction for floor number " + floorNumber + " completed in school");
+        } else {
+            System.out.println("Construction for floor number " + floorNumber + " not completed in school");
+        }
+    }
+
+    @Override
+    public void printNumberOfFloors() {
+        System.out.println("The school has " + floors.length + " floors");
+    }
+}
+
+class Hospital implements Building {
+    private int[] floors;
+
+    public Hospital(int n) {
+        floors = new int[n];
+        System.out.println("A hospital is being constructed");
+    }
+
+    @Override
+    public void floorCompleted(int floorNumber) {
+        if (floorNumber > floors.length || floorNumber <= 0) {
+            System.out.println("Floor number " + floorNumber + " does not exist in hospital");
+        } else {
+            floors[floorNumber - 1] = 1;
+            System.out.println("Construction for floor number " + floorNumber + " completed in hospital");
+        }
+    }
+
+    @Override
+    public void printStatus(int floorNumber) {
+        if (floorNumber > floors.length || floorNumber <= 0) {
+            System.out.println("Floor number " + floorNumber + " does not exist in hospital");
+        } else if (floors[floorNumber - 1] == 1) {
+            System.out.println("Construction for floor number " + floorNumber + " completed in hospital");
+        } else {
+            System.out.println("Construction for floor number " + floorNumber + " not completed in hospital");
+        }
+    }
+
+    @Override
+    public void printNumberOfFloors() {
+        System.out.println("The hospital has " + floors.length + " floors");
+    }
+}
+
+
+✅ Why it works
+
+Both classes implement all interface methods.
+
+Avoids public (since all in same file).
+
+Meets HackerRank-style test validations.
