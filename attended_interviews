@@ -238,3 +238,129 @@ Both classes implement all interface methods.
 Avoids public (since all in same file).
 
 Meets HackerRank-style test validations.
+
+===================================================================================
+
+
+AT&T Senior Engineer - Round 1
+--------------------------
+
+- Java8 futures list down and write the code.
+- Records feature in Java14
+
+write a program to print the name of the feature with feature characteristic name qualifier and value GOOD
+let str = 
+    "feature": [
+    {
+      "name": "Test1",
+      "featureCharacteristic": [
+        {
+          "name": "priority",
+          "valueType": "string",
+          "value": "2"
+        },
+        {
+          "name": "qualifier",
+          "valueType": "string",
+          "value": "GOOD"
+        }
+      ]
+    },
+    {
+      "name": "Test2",
+      "featureCharacteristic": [
+        {
+          "name": "priority",
+          "valueType": "string",
+          "value": "1"
+        },
+        {
+          "name": "qualifier",
+          "valueType": "string",
+          "value": "BEST"
+        }
+      ]
+    }
+  ]
+};
+
+
+class Feature{
+    private String name;
+    private List<FeatureCharacterstic> featureCharacterstic;
+    Feature(name, featureCharacteristic){
+        this.name = name;
+        this.featureCharacteristic = featureCharacteristic;
+    }
+
+}
+class FeatureCharacterstic{
+    private String name;
+    private String valueType;
+    private value;
+    FeatureCharacterstic(name, valueType, value){
+        this.name = name;
+        this.valueType = valueType;
+        this.value = value;
+    }
+}
+
+FeatureCharacterstic featureCharacteristic1 = new FeatureCharacterstic("priority", "String", "2");
+FeatureCharacterstic featureCharacteristic2 = new FeatureCharacterstic("qualifier", "String", "GOOD");
+FeatureCharacterstic featureCharacteristic3 = new FeatureCharacterstic("priority", "String", "1");
+FeatureCharacterstic featureCharacteristic4 = new FeatureCharacterstic("qualifier", "valueType", "BEST");
+
+List<FeatureCharacterstic> list1 = new ArrayList<>();
+list1.add(featureCharacteristic1);
+list1.add(featureCharacteristic2);
+Feature feature1 = new Feature("Test1", list1);
+
+
+List<FeatureCharacterstic> list2 = new ArrayList<>();
+list1.add(featureCharacteristic3);
+list1.add(featureCharacteristic4);
+Feature feature1 = new Feature("Test2", list2);
+
+List<Feature> featureList = new ArrayList<>();
+
+
+for(int i=0; i<feature.size(); i++){
+    Feature feature = featureList.get(i);
+    for(int j=0; j<feature.featureCharacteristic.size(); j++){
+        FeatureCharacterstic featureChar = feature.featureCharacteristic.get(j);
+        if(featureChar.name.equals("qualifier") && featureChar.value.equals("GOOD")){
+            System.out.println(feature.get(i).name);
+        }
+    }
+}
+
+
+===============================================================================================
+
+AT&T Senior Engineer - Round 2
+--------------------------
+- how can you filter duplicate employee objects from list
+- CompletableFeature for multiple service/api calls.
+- east/west deployments.
+- functional programming. can we access the variable outside of class
+- how do you define apis for cart add, update, delete.
+- apache kafka, how it works. did you use it in project.
+- how do you make sure api is available, regarding promothesus, grafana. Scaling of apis
+- Security in apis
+
+===============================================================================================
+
+AT&T Lead full stack -- Round 1:
+----------------------------
+
+- Streams in react js while making api call instead of waiting.
+- core web vitals
+- Promoise methods ==> all allSettled
+- how will you identify the re-renders.
+- useState(prev -> prev+1) how previous state we have to get and why
+- rateLimit working. what happens when bulk request posted to endpoint. How can we prevent. How the rate limit works and implementation.
+- how the webchunks will be created, what are confiugrations for code splitting.
+- node memory managment in apis.
+
+=====================================================================================================
+
