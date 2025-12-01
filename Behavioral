@@ -1,0 +1,174 @@
+Behavioral / Leadership Questions
+Q1: Tell me about a time you solved a high-impact technical problem.
+
+Answer (STAR):
+Situation: Our users were entering account and routing numbers manually for one-time payments, leading to frequent errors.
+Task: Integrate a system that would validate credentials automatically to improve accuracy and customer trust.
+Action: Coordinated with the ChasePayByBank team to understand their APIs and integration requirements.
+Developed and implemented the UI for seamless customer input.
+Used Apigee to enable webhook APIs for backend communication.
+Coordinated with multiple teams for end-to-end enablement.
+Result: Reduced payment entry errors significantly and improved customer trust. The flow became more reliable, and the customer experience was enhanced with a richer UI.
+----------------------------------------------------------------------------------------------------------------------------------
+
+Q2: Describe a situation where a project didn’t go as planned. What did you do?
+
+Answer (STAR):
+Situation: During PayPal Braintree migration, the old vendor system was sunsetting faster than expected, creating a risk of transaction failures.
+Task: Ensure smooth migration without disrupting payment flows.
+Action:
+Led discussions with vendor and internal teams to map dependencies.
+Built test cases to validate end-to-end transactions.
+Migrated services to Braintree while maintaining backward compatibility.
+Result: Migration completed successfully without any downtime, maintaining seamless transactions for customers and mitigating vendor sunset risks.
+-------------------------------------------------------------------------------------------
+Q3: How do you handle conflicts with teammates or stakeholders?
+
+Answer:
+Approach conflicts with empathy and facts.
+
+Listen to all viewpoints, document disagreements, and provide data-backed solutions.
+
+Example: Coordinating multiple teams for ChasePayByBank integration, there was a mismatch on API deadlines. I organized a technical discussion, clarified dependencies, and aligned timelines, ensuring smooth integration without blame.
+--------------------------------------------------------------------------------------------
+Q4: How do you prioritize tasks when everything is urgent?
+
+Answer:
+I classify tasks as Critical / High / Medium / Low based on business impact and dependencies.
+
+Example: During parallel payment initiatives, validating ChasePayByBank credentials was critical for reducing errors, so it took top priority over UI enhancements, which were important but less urgent.
+
+----------------------------------------------------------------------------------------------------------
+
+2️⃣ High-Level Technical / System Design Questions
+Q5: How do you design a batch system for 1M records?
+
+Answer (Tie with real projects):
+
+Partition data into batches to process independently.
+Use thread pools per pod in Kubernetes for parallel processing.
+For payment APIs like ChasePayByBank, process multiple validations concurrently but respect API rate limits.
+Retries and DLQs: failed batches or records go into a dead-letter queue for retry.
+Monitoring: use dashboards for real-time visibility of processing.
+Scaling: Horizontal scaling of pods and vertical scaling of CPU/memory based on batch load.
+Takeaway: Ensures large-scale processing is reliable, scalable, and error-resilient.
+--------------------------------------------------------------------------------------
+Q6: How do you ensure high-quality integration with external APIs (like ChasePayByBank)?
+
+Answer:
+Conduct detailed vendor discussions to understand API contracts.
+Implement input validation and error handling.
+Enable webhooks via Apigee for asynchronous events.
+Write unit and integration tests to simulate API failures.
+Add monitoring and logging for API latency and errors.
+
+Result: Reduced customer input errors and improved transaction reliability.
+
+--------------------------------------------------------------------------------------------------
+Q7: How did you design retry logic and handle failures?
+
+Answer:
+Record-level failure: log to DLQ, retry asynchronously.
+Batch-level failure: pod retries with exponential backoff, mark persistent failures for manual review.
+Node/pod crash: track batch state in database; other pod reclaims unprocessed batches.
+Ensures idempotent processing and zero transaction duplication.
+----------------------------------------------------------------------------------------------------
+Q8: How do pods, CPU cores, and scaling work in AWS/Kubernetes?
+
+Answer:
+Pods run on EC2 nodes, which have physical CPU cores.
+Each pod has CPU requests and limits; Java sees only the cores allocated.
+Horizontal scaling: add pods to increase throughput (like multiple workers).
+Vertical scaling: increase CPU/memory per pod to speed up processing.
+
+Example: For payment processing, multiple pods validate credentials concurrently, respecting API limits, while autoscaling ensures pods increase if the load spikes.
+-------------------------------------------------------------------------------------------------------------
+Q9: How do you ensure UI/UX improvements?
+
+Answer:
+
+Worked with React.js features to create rich, responsive user interfaces.
+Ensured validation feedback for users (e.g., incorrect account/routing numbers).
+Collaborated with business to design flows aligned with customer expectations.
+
+Result: Reduced errors and improved trust in one-time payment flow.
+--------------------------------------------------------------------------------------------------------------
+
+3️⃣ Culture / Fit Questions
+Q10: How do you mentor junior developers?
+
+Answer:
+
+Conduct code reviews, share best practices, and guide them on system design decisions.
+Encourage writing modular, testable code.
+Example: During microservices implementation for payments, I helped juniors understand asynchronous API integration and webhook handling, improving team velocity.
+--------------------------------------------------------------------------------------------------------------
+Q11: How do you communicate complex technical issues to non-technical stakeholders?
+
+Answer:
+Use visual diagrams, dashboards, and simplified explanations.
+Example: Explained ChasePayByBank API flow to product team using sequence diagrams, showing how customer validation reduces errors without exposing backend complexity.
+----------------------------------------------------------------------------------------------------------------
+✅ 4️⃣ System Design Talking Points for HM
+
+You can summarize in HM round verbally:
+ChasePayByBank: reduces user input errors → API validation → webhook updates → rich UI → error logging → monitoring dashboards.
+PayPal Braintree migration: replaced sunsetting vendor → seamless transition → parallel processing → minimal downtime.
+Monitoring platform: real-time & historical visibility → proactive issue resolution → improved customer trust.
+Parallel processing & scaling: Kubernetes pods, CPU allocation, thread pools → scalable & resilient architecture.
+Failure handling: retries, DLQs, idempotent processing → reliability guaranteed.
+========================================================================================================================================================================
+
+1️⃣ Tell me about a high-impact technical problem you solved
+
+"In one of my recent projects, users were manually entering account and routing numbers for one-time payments, which often caused errors. My task was to reduce these errors and improve customer trust. I led the integration with ChasePayByBank APIs to validate credentials automatically. I coordinated with the vendor to understand the API flows, implemented the UI enhancements using React.js to give real-time feedback to users, and enabled webhook APIs via Apigee for backend communication. I also coordinated across multiple teams to ensure end-to-end enablement. As a result, payment entry errors dropped significantly, and the customer experience improved, building trust in our one-time payment flow."
+
+2️⃣ Tell me about a time a project didn’t go as planned
+
+"During the PayPal Braintree migration, the existing vendor system was sunsetting faster than expected, which could have caused disruption in payment processing. I led discussions with the vendor and internal teams to map dependencies, created detailed test cases to validate end-to-end transactions, and implemented the migration to Braintree while maintaining backward compatibility. We successfully completed the migration without downtime, ensuring seamless transactions for customers and mitigating vendor sunset risks."
+
+3️⃣ How do you handle conflicts with teammates or stakeholders
+
+"I approach conflicts by listening to all viewpoints and gathering facts before making decisions. For example, during ChasePayByBank integration, there was a disagreement between teams on API deadlines. I organized a technical discussion, clarified dependencies, and aligned timelines. This way, we avoided delays, ensured smooth integration, and resolved conflicts professionally without blame."
+
+4️⃣ How do you prioritize tasks when everything is urgent
+
+"I prioritize based on business impact and dependencies. For instance, while working on parallel payment initiatives, validating ChasePayByBank credentials was critical to reducing errors, so I prioritized it over UI enhancements, which were important but less urgent. This ensures critical features are delivered first while maintaining overall project quality."
+
+5️⃣ How did you design the batch/system processing (1M records)
+
+"For large-scale batch processing, we partitioned data into smaller batches to process independently. Each Kubernetes pod handled a batch, using thread pools matching CPU cores for parallel execution. For payment API validations like ChasePayByBank, we respected API rate limits and implemented retries with a dead-letter queue for failed records. Monitoring dashboards provided real-time visibility into batch processing. Horizontal scaling of pods handled increased loads, while vertical scaling improved per-pod processing speed. This approach ensured reliable, scalable, and error-resilient processing of large datasets."
+
+6️⃣ How do you ensure high-quality integration with external APIs
+
+"We started with vendor discussions to understand API contracts. Then, we implemented input validation, error handling, and webhook APIs using Apigee. We built unit and integration tests to simulate API failures and monitored API latency and errors. For ChasePayByBank, this reduced errors from manual inputs and improved reliability, while the PayPal Braintree migration maintained uninterrupted payment processing."
+
+7️⃣ How do you handle retries and failures
+
+"For individual record failures, we log to a dead-letter queue and retry asynchronously. For batch failures, pods retry with exponential backoff, and persistent failures are reviewed manually. If a pod or node crashes, batch states are tracked in the database so other pods can reclaim unprocessed batches. All processing is designed to be idempotent, ensuring no duplicate transactions or data corruption."
+
+8️⃣ How do pods, CPU cores, and scaling work in AWS/Kubernetes
+
+"Pods are scheduled onto EC2 nodes, which have physical CPU cores. Each pod has CPU requests and limits. Java inside the pod sees only the allocated cores, which determines how many threads we can run in parallel. Horizontal scaling adds more pods to increase throughput, while vertical scaling increases CPU or memory per pod. In the payment system, multiple pods validate credentials concurrently while respecting API limits, and autoscaling ensures pods scale automatically if load spikes."
+
+9️⃣ How do you mentor junior developers
+
+"I conduct code reviews, share best practices, and guide juniors on system design decisions. For example, during microservices development for payments, I helped junior developers understand asynchronous API integration and webhook handling. This improved their skills, reduced errors, and increased overall team productivity."
+
+🔟 How do you communicate technical issues to non-technical stakeholders
+
+"I use visual diagrams, dashboards, and simplified explanations. For example, I explained the ChasePayByBank API flow to the product team using sequence diagrams, showing how automatic validation reduces errors without exposing backend complexity. This ensures stakeholders understand the value and impact of technical solutions."
+
+11️⃣ System Design / Technical Summary (Can be spoken if asked for your approach)
+
+"For payments, we worked on two critical initiatives in parallel: ChasePayByBank integration and PayPal Braintree migration. The ChasePayByBank integration reduces user entry errors by validating credentials via APIs, with webhook support for backend updates and rich UI feedback. The Braintree migration replaced a sunsetting vendor to maintain reliable payment processing. We built a monitoring platform for real-time and historical visibility. Scaling is handled through Kubernetes pods with CPU-based thread pools, retries and dead-letter queues ensure reliability, and horizontal/vertical scaling supports throughput and speed requirements. All of this improved customer trust and transaction reliability."
+
+✅ Tips for Delivery
+
+Speak confidently — use natural pauses, don’t rush.
+
+Highlight results — always quantify where possible (error reduction, uptime, customer satisfaction).
+
+Use “I did” instead of “we did” for leadership questions.
+
+Be ready for follow-up questions — HM may ask: “How did you decide thread pool size?” or “What monitoring metrics did you track?”
