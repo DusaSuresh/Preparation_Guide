@@ -1,3 +1,137 @@
+AT&T Senior Engineer - Round 1
+--------------------------
+
+- Java8 futures list down and write the code.
+- Records feature in Java14
+
+write a program to print the name of the feature with feature characteristic name qualifier and value GOOD
+let str = 
+    "feature": [
+    {
+      "name": "Test1",
+      "featureCharacteristic": [
+        {
+          "name": "priority",
+          "valueType": "string",
+          "value": "2"
+        },
+        {
+          "name": "qualifier",
+          "valueType": "string",
+          "value": "GOOD"
+        }
+      ]
+    },
+    {
+      "name": "Test2",
+      "featureCharacteristic": [
+        {
+          "name": "priority",
+          "valueType": "string",
+          "value": "1"
+        },
+        {
+          "name": "qualifier",
+          "valueType": "string",
+          "value": "BEST"
+        }
+      ]
+    }
+  ]
+};
+
+
+class Feature{
+    private String name;
+    private List<FeatureCharacterstic> featureCharacterstic;
+    Feature(name, featureCharacteristic){
+        this.name = name;
+        this.featureCharacteristic = featureCharacteristic;
+    }
+
+}
+class FeatureCharacterstic{
+    private String name;
+    private String valueType;
+    private value;
+    FeatureCharacterstic(name, valueType, value){
+        this.name = name;
+        this.valueType = valueType;
+        this.value = value;
+    }
+}
+
+FeatureCharacterstic featureCharacteristic1 = new FeatureCharacterstic("priority", "String", "2");
+FeatureCharacterstic featureCharacteristic2 = new FeatureCharacterstic("qualifier", "String", "GOOD");
+FeatureCharacterstic featureCharacteristic3 = new FeatureCharacterstic("priority", "String", "1");
+FeatureCharacterstic featureCharacteristic4 = new FeatureCharacterstic("qualifier", "valueType", "BEST");
+
+List<FeatureCharacterstic> list1 = new ArrayList<>();
+list1.add(featureCharacteristic1);
+list1.add(featureCharacteristic2);
+Feature feature1 = new Feature("Test1", list1);
+
+
+List<FeatureCharacterstic> list2 = new ArrayList<>();
+list1.add(featureCharacteristic3);
+list1.add(featureCharacteristic4);
+Feature feature1 = new Feature("Test2", list2);
+
+List<Feature> featureList = new ArrayList<>();
+
+
+for(int i=0; i<feature.size(); i++){
+    Feature feature = featureList.get(i);
+    for(int j=0; j<feature.featureCharacteristic.size(); j++){
+        FeatureCharacterstic featureChar = feature.featureCharacteristic.get(j);
+        if(featureChar.name.equals("qualifier") && featureChar.value.equals("GOOD")){
+            System.out.println(feature.get(i).name);
+        }
+    }
+}
+
+
+===============================================================================================
+
+AT&T Senior Engineer - Round 2
+--------------------------
+- how can you filter duplicate employee objects from list
+- CompletableFeature for multiple service/api calls.
+- east/west deployments.
+- functional programming. can we access the variable outside of class
+- how do you define apis for cart add, update, delete.
+- apache kafka, how it works. did you use it in project.
+- how do you make sure api is available, regarding promothesus, grafana. Scaling of apis
+- Security in apis
+
+===============================================================================================
+AT&T Director round(Final)
+
+- Thread dump --> how do you analyze it.
+- Jmiter --> what parameters you will look into it.
+- what is test case ?
+- PCI data security how did you handle?
+- if you get any production defect, how do you handle it.? what is the process of analysis.
+- you have given code which has performance drawback and very hard to maintain. what strategies you will take as engineer to rewrite it.
+- As I am fullstack developer but have PMP, SAFeAgile certificates. why these have or do I need to remove it from resume.
+- One of API has latency and you have given task to improve the performance of it. What will you check and improve it.
+
+===================================================================================================
+
+AT&T Lead full stack -- Round 1:
+----------------------------
+
+- Streams in react js while making api call instead of waiting.
+- core web vitals
+- Promoise methods ==> all allSettled
+- how will you identify the re-renders.
+- useState(prev -> prev+1) how previous state we have to get and why
+- rateLimit working. what happens when bulk request posted to endpoint. How can we prevent. How the rate limit works and implementation.
+- how the webchunks will be created, what are confiugrations for code splitting.
+- node memory managment in apis.
+
+=====================================================================================================
+
 AT&T Hackerrank - 11/11/25
 Question 1 — NodeJS: ExpressJS Middleware Basics
 ✅ Problem
@@ -140,227 +274,4 @@ void floorCompleted(int floorNumber);
 void printStatus(int floorNumber);
 void printNumberOfFloors();
 
-
-Implement School and Hospital classes that:
-
-Have an int[] floors array.
-
-Set all elements to 0 (not completed).
-
-Mark floors completed by setting 1.
-
-Handle invalid floor numbers.
-
-Print messages exactly as specified.
-
-✅ Solution (in one file, e.g., Solution.java)
-interface Building {
-    void floorCompleted(int floorNumber);
-    void printStatus(int floorNumber);
-    void printNumberOfFloors();
-}
-
-class School implements Building {
-    private int[] floors;
-
-    public School(int n) {
-        floors = new int[n];
-        System.out.println("A school is being constructed");
-    }
-
-    @Override
-    public void floorCompleted(int floorNumber) {
-        if (floorNumber > floors.length || floorNumber <= 0) {
-            System.out.println("Floor number " + floorNumber + " does not exist in school");
-        } else {
-            floors[floorNumber - 1] = 1;
-            System.out.println("Construction for floor number " + floorNumber + " completed in school");
-        }
-    }
-
-    @Override
-    public void printStatus(int floorNumber) {
-        if (floorNumber > floors.length || floorNumber <= 0) {
-            System.out.println("Floor number " + floorNumber + " does not exist in school");
-        } else if (floors[floorNumber - 1] == 1) {
-            System.out.println("Construction for floor number " + floorNumber + " completed in school");
-        } else {
-            System.out.println("Construction for floor number " + floorNumber + " not completed in school");
-        }
-    }
-
-    @Override
-    public void printNumberOfFloors() {
-        System.out.println("The school has " + floors.length + " floors");
-    }
-}
-
-class Hospital implements Building {
-    private int[] floors;
-
-    public Hospital(int n) {
-        floors = new int[n];
-        System.out.println("A hospital is being constructed");
-    }
-
-    @Override
-    public void floorCompleted(int floorNumber) {
-        if (floorNumber > floors.length || floorNumber <= 0) {
-            System.out.println("Floor number " + floorNumber + " does not exist in hospital");
-        } else {
-            floors[floorNumber - 1] = 1;
-            System.out.println("Construction for floor number " + floorNumber + " completed in hospital");
-        }
-    }
-
-    @Override
-    public void printStatus(int floorNumber) {
-        if (floorNumber > floors.length || floorNumber <= 0) {
-            System.out.println("Floor number " + floorNumber + " does not exist in hospital");
-        } else if (floors[floorNumber - 1] == 1) {
-            System.out.println("Construction for floor number " + floorNumber + " completed in hospital");
-        } else {
-            System.out.println("Construction for floor number " + floorNumber + " not completed in hospital");
-        }
-    }
-
-    @Override
-    public void printNumberOfFloors() {
-        System.out.println("The hospital has " + floors.length + " floors");
-    }
-}
-
-
-✅ Why it works
-
-Both classes implement all interface methods.
-
-Avoids public (since all in same file).
-
-Meets HackerRank-style test validations.
-
 ===================================================================================
-
-
-AT&T Senior Engineer - Round 1
---------------------------
-
-- Java8 futures list down and write the code.
-- Records feature in Java14
-
-write a program to print the name of the feature with feature characteristic name qualifier and value GOOD
-let str = 
-    "feature": [
-    {
-      "name": "Test1",
-      "featureCharacteristic": [
-        {
-          "name": "priority",
-          "valueType": "string",
-          "value": "2"
-        },
-        {
-          "name": "qualifier",
-          "valueType": "string",
-          "value": "GOOD"
-        }
-      ]
-    },
-    {
-      "name": "Test2",
-      "featureCharacteristic": [
-        {
-          "name": "priority",
-          "valueType": "string",
-          "value": "1"
-        },
-        {
-          "name": "qualifier",
-          "valueType": "string",
-          "value": "BEST"
-        }
-      ]
-    }
-  ]
-};
-
-
-class Feature{
-    private String name;
-    private List<FeatureCharacterstic> featureCharacterstic;
-    Feature(name, featureCharacteristic){
-        this.name = name;
-        this.featureCharacteristic = featureCharacteristic;
-    }
-
-}
-class FeatureCharacterstic{
-    private String name;
-    private String valueType;
-    private value;
-    FeatureCharacterstic(name, valueType, value){
-        this.name = name;
-        this.valueType = valueType;
-        this.value = value;
-    }
-}
-
-FeatureCharacterstic featureCharacteristic1 = new FeatureCharacterstic("priority", "String", "2");
-FeatureCharacterstic featureCharacteristic2 = new FeatureCharacterstic("qualifier", "String", "GOOD");
-FeatureCharacterstic featureCharacteristic3 = new FeatureCharacterstic("priority", "String", "1");
-FeatureCharacterstic featureCharacteristic4 = new FeatureCharacterstic("qualifier", "valueType", "BEST");
-
-List<FeatureCharacterstic> list1 = new ArrayList<>();
-list1.add(featureCharacteristic1);
-list1.add(featureCharacteristic2);
-Feature feature1 = new Feature("Test1", list1);
-
-
-List<FeatureCharacterstic> list2 = new ArrayList<>();
-list1.add(featureCharacteristic3);
-list1.add(featureCharacteristic4);
-Feature feature1 = new Feature("Test2", list2);
-
-List<Feature> featureList = new ArrayList<>();
-
-
-for(int i=0; i<feature.size(); i++){
-    Feature feature = featureList.get(i);
-    for(int j=0; j<feature.featureCharacteristic.size(); j++){
-        FeatureCharacterstic featureChar = feature.featureCharacteristic.get(j);
-        if(featureChar.name.equals("qualifier") && featureChar.value.equals("GOOD")){
-            System.out.println(feature.get(i).name);
-        }
-    }
-}
-
-
-===============================================================================================
-
-AT&T Senior Engineer - Round 2
---------------------------
-- how can you filter duplicate employee objects from list
-- CompletableFeature for multiple service/api calls.
-- east/west deployments.
-- functional programming. can we access the variable outside of class
-- how do you define apis for cart add, update, delete.
-- apache kafka, how it works. did you use it in project.
-- how do you make sure api is available, regarding promothesus, grafana. Scaling of apis
-- Security in apis
-
-===============================================================================================
-
-AT&T Lead full stack -- Round 1:
-----------------------------
-
-- Streams in react js while making api call instead of waiting.
-- core web vitals
-- Promoise methods ==> all allSettled
-- how will you identify the re-renders.
-- useState(prev -> prev+1) how previous state we have to get and why
-- rateLimit working. what happens when bulk request posted to endpoint. How can we prevent. How the rate limit works and implementation.
-- how the webchunks will be created, what are confiugrations for code splitting.
-- node memory managment in apis.
-
-=====================================================================================================
-
