@@ -40,3 +40,36 @@ CLS -> Cumulative Layout Shift - For example if in three rows images are getting
 -> Performance of the site can also be checked in below sites.
   https://pagespeed.web.dev/
   https://gtmetrix.com/
+
+> Avoid Unnecessary Re-renders -> React.memo(() => {}) -> React memo stop child re-renders when props didn’t change.
+
+-> Memoize Calculations -> useMemo(()=> {},[value]) -> Heavy calculation will not be done on every re-render only when dependency changes.
+
+-> Stabilize Function References -> Functions are recreated on every render → causes child re-renders. useCallback(() => {})
+
+-> Code-Splitting & Lazy Loading -> using React lazy load, we can split component into chunk and loaded on demand.
+
+Const Profile = React.lazy(() => import(‘./Profile’));
+<Suspense fallback={<div>…loading</div>}><Profile></Suspense>
+
+->Virtualization for Large Lists -> For long list display in component we can use below libraries so that entire list will not be loaded initially instead of viewPort size only loaded
+	- react window
+	- react virtualized
+
+-> Avoid Deep Object/Array State Mutations -> if you mutate state directly, re-render won’t done properly. So state should be compared with previous one and update it
+
+-> useThrottling, debounce -> use this for heavy operations.
+
+-> Preload, Prefetch & Preconnect
+	Preload (load critical resources early) —> <link rel="preload" href="/big-font.woff2" as="font">
+	Prefetch (load future page resources) —> <link rel="prefetch" href="/dashboard.js">
+	Preconnect (DNS/TLS warmup) —> <link rel="preconnect" href="https://api.example.com">
+
+-> Image Optimization Techniques
+* Use webp/avif
+* Lazy load images
+* Use CDN
+* Compress images
+
+-> Avoid indexes as keys in list
+
