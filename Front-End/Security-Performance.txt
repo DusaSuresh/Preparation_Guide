@@ -1,0 +1,42 @@
+Security:
+==========
+
+-> XSS - React itself take care using escape but dangerouslySetHtml in this case input has to be sanitized. Sanitization done using DOMPurify library.
+
+-> CSP - Consent Security Policies . Normally will load js, css, frames, images etc. Here if we add few polices like allow those domains only it will allow.
+
+-> Authentication —> Authentication data should not be handled at client side. If you use cookies for token then only use HttpOnly. This one will not be accessible from JS.
+
+-> CSRF -> This one will be handled at server side, if we keep this server will check for specific domains.
+
+-> CORS -> Any external calls will be stopped by placing cars at server side. It will allow only specific domain calls by using Access-control-allow-origin
+
+-> Input sanitization —>Always sanitize the input received from the forms or urls before using it.
+
+-> Https - Always use https in network layer calls. This one will provide security at network by mTLS.
+
+-> RateLimit - use debounce, throttling for making an api calls by stopping always making server side calls
+
+-> Error handling -> Proper error handling has to be implemented.
+
+-> Logging & Observability -> don’t add any sensitive data into logs. 
+
+-> UI must not load in iframe -> X-FRAME-OPTIONS: DENY
+
+Performance
+=============
+
+Core Web Vitals Assessment
+---------------------------
+- Most of the page performance is dependent on images size, Images size should be less than 20kb. If we make it, them most of the cases will resolve.
+- While loading the images using link tag, we can keep "preload" flag, it will load without waiting for other scripts to load.
+- Few external scripts will also take time to load, those needs to loaded properly to improve it.
+
+LCP -> Largest Contentful Paint
+FCP -> First Contentful Paint
+CLS -> Cumulative Layout Shift - For example if in three rows images are getting loaded and in one row images loading little bit late. When it loaded automatically layout will shift.
+
+-> We can check this performance metrics in "lighthouse" in iinspect element.
+-> Performance of the site can also be checked in below sites.
+  https://pagespeed.web.dev/
+  https://gtmetrix.com/
