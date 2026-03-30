@@ -1,4 +1,4 @@
-AT&T Senior Engineer - Round 1
+AT&T  - Round 1
 --------------------------
 
 - Java8 futures list down and write the code.
@@ -91,9 +91,18 @@ for(int i=0; i<feature.size(); i++){
 }
 
 
+- Streams in react js while making api call instead of waiting.
+- core web vitals
+- Promoise methods ==> all allSettled
+- how will you identify the re-renders.
+- useState(prev -> prev+1) how previous state we have to get and why
+- rateLimit working. what happens when bulk request posted to endpoint. How can we prevent. How the rate limit works and implementation.
+- how the webchunks will be created, what are confiugrations for code splitting.
+- node memory managment in apis.
+
 ===============================================================================================
 
-AT&T Senior Engineer - Round 2
+AT&T - Round 2
 --------------------------
 - how can you filter duplicate employee objects from list
 - CompletableFeature for multiple service/api calls.
@@ -103,6 +112,42 @@ AT&T Senior Engineer - Round 2
 - apache kafka, how it works. did you use it in project.
 - how do you make sure api is available, regarding promothesus, grafana. Scaling of apis
 - Security in apis
+
+
+
+===================================================================================================
+
+
+AT & T Round 3 - Lead Full Stack Engineer
+------------------------------------------
+
+Difference between bind and apply
+Anti patterns in react, assign value directly to state variable.
+This key word useful, window object useful, useStrict what is the use.
+What will happen when useState method used.
+Wanted to improve contextApi performance without re-renders.
+Dynamic import, how will add suspense implementation
+Script loading async, defer which one useful
+Non primitive data types in javascript
+
+
+Design YouTube system. Talk about non functional requirements 
+How the streaming works. How videos will be played.
+Database sharding.
+Hashmap vs concurrentHaspMap.
+How will you handle deadlocks in the above hm &chm
+Talk about microservices design patterns(Saga, Circuit Breaker)
+Any production defect came, how will you analyze and fix it.
+
+====================================================================================
+
+AT&T AVP Round:
+------------------------
+
+In which product delivery you are proud of it
+What is biggest mistake you have done.
+How service based companies works.
+What is your day to day activities, how it starts and ends.
 
 ===============================================================================================
 AT&T Director round(Final)
@@ -116,19 +161,6 @@ AT&T Director round(Final)
 - As I am fullstack developer but have PMP, SAFeAgile certificates. why these have or do I need to remove it from resume.
 - One of API has latency and you have given task to improve the performance of it. What will you check and improve it.
 
-===================================================================================================
-
-AT&T Lead full stack -- Round 1:
-----------------------------
-
-- Streams in react js while making api call instead of waiting.
-- core web vitals
-- Promoise methods ==> all allSettled
-- how will you identify the re-renders.
-- useState(prev -> prev+1) how previous state we have to get and why
-- rateLimit working. what happens when bulk request posted to endpoint. How can we prevent. How the rate limit works and implementation.
-- how the webchunks will be created, what are confiugrations for code splitting.
-- node memory managment in apis.
 
 =====================================================================================================
 
@@ -275,3 +307,5 @@ void printStatus(int floorNumber);
 void printNumberOfFloors();
 
 ===================================================================================
+
+
